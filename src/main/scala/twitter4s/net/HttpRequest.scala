@@ -1,4 +1,4 @@
-package twtter4s.net
+package twitter4s.net
 
 import scala.collection.mutable.Map
 import java.net.{HttpURLConnection,
