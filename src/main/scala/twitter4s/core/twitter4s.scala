@@ -5,7 +5,7 @@ package twitter4s.core
   * twitter4s is a Scala wrapper for the Twitter API.
   * this lib is using REST API
   * @author lrf141
-  * @since 0.0.1
+  * @since 1.0.0
   */
 class twitter4s {
 

@@ -4,6 +4,7 @@ import java.net.{HttpURLConnection, URL}
 
 /**
   * Created by rabbitfoot on 17/08/27.
+  * @since 1.0.0
   */
 class OAuthRequest {
 

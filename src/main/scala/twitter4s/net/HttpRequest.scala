@@ -15,7 +15,7 @@ import java.io.{BufferedReader,
 /**
   * Created by lrf141 on 17/08/26.
   * @author lrf141
-  * @since 0.0.1
+  * @since 1.0.0
   */
 class HttpRequest {
 
