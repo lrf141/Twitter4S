@@ -76,7 +76,7 @@ class HttpRequest {
     * @param rawHeaderMap raw header
     * @return converted header as Map[String,String]
     */
-  def convertHeader(rawHeaderMap: Map[String,List[String]]):Map[String,String] = {
+  private def convertHeader(rawHeaderMap: Map[String,List[String]]):Map[String,String] = {
 
     var resultMap:Map[String,String] = Map.empty[String,String]
 

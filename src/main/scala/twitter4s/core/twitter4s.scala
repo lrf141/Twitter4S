@@ -10,10 +10,10 @@ package twitter4s.core
 class twitter4s {
 
   /**
-    * Twitter API Keys managed by this class
+    * Twitter API Keys managed by this object
     * @author lrf141
     */
-  class Keys{
+  object Keys{
 
     private [this] var ck:String = null
     private [this] var cs:String = null
