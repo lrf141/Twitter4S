@@ -66,8 +66,7 @@ class OAuthRequest {
   }
 
   /**
-    *
-    * @return
+    * @return random value of String
     */
   def getNonce:String = String.valueOf(System.currentTimeMillis)
 }

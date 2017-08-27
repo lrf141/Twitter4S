@@ -2,9 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
         <head>
-          <title>HttpResponse - Twitter4S documentation - twitter4s.net.HttpResponse</title>
-          <meta name="description" content="HttpResponse - Twitter4S documentation - twitter4s.net.HttpResponse" />
-          <meta name="keywords" content="HttpResponse Twitter4S documentation twitter4s.net.HttpResponse" />
+          <title>Base64Translator - Twitter4S documentation - twitter4s.util.Base64Translator</title>
+          <meta name="description" content="Base64Translator - Twitter4S documentation - twitter4s.util.Base64Translator" />
+          <meta name="keywords" content="Base64Translator Twitter4S documentation twitter4s.util.Base64Translator" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -12,7 +12,7 @@
       <script type="text/javascript">
          if(top === self) {
             var url = '../../index.html';
-            var hash = 'twitter4s.net.HttpResponse';
+            var hash = 'twitter4s.util.Base64Translator$';
             var anchor = window.location.hash;
             var anchor_opt = '';
             if (anchor.length >= 1)
@@ -22,24 +22,24 @@
    	  </script>
     
         </head>
-        <body class="type">
+        <body class="value">
       <div id="definition">
-        <img src="../../lib/class_big.png" />
-        <p id="owner"><a href="../package.html" class="extype" name="twitter4s">twitter4s</a>.<a href="package.html" class="extype" name="twitter4s.net">net</a></p>
-        <h1>HttpResponse</h1>
+        <img src="../../lib/object_big.png" />
+        <p id="owner"><a href="../package.html" class="extype" name="twitter4s">twitter4s</a>.<a href="package.html" class="extype" name="twitter4s.util">util</a></p>
+        <h1>Base64Translator</h1>
       </div>
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">class</span>
+        <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">HttpResponse</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">Base64Translator</span>
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Created by lrf141 on 17/08/26.</p></div><dl class="attributes block"> <dt>Since</dt><dd><p>1.0.0
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Created by lrf141 on 17/08/27.</p></div><dl class="attributes block"> <dt>Since</dt><dd><p>1.0.0
 </p></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
@@ -60,7 +60,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="twitter4s.net.HttpResponse"><span>HttpResponse</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="twitter4s.util.Base64Translator"><span>Base64Translator</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -78,23 +78,7 @@
 
       <div id="template">
         <div id="allMembers">
-        <div id="constructors" class="members">
-              <h3>Instance Constructors</h3>
-              <ol><li name="twitter4s.net.HttpResponse#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;():twitter4s.net.HttpResponse"></a>
-      <a id="&lt;init&gt;:HttpResponse"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">new</span>
-      </span>
-      <span class="symbol">
-        <span class="name">HttpResponse</span><span class="params">()</span>
-      </span>
-      </h4>
-      
-    </li></ol>
-            </div>
+        
 
         
 
@@ -199,6 +183,34 @@
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="twitter4s.util.Base64Translator#decode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="decode(text:String):String"></a>
+      <a id="decode(String):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">decode</span><span class="params">(<span name="text">text: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">text</dt><dd class="cmt"></dd><dt>returns</dt><dd class="cmt"><p>decoded string value
+</p></dd></dl></div>
+    </li><li name="twitter4s.util.Base64Translator#encode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="encode(base:String):String"></a>
+      <a id="encode(String):String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">encode</span><span class="params">(<span name="base">base: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">base</dt><dd class="cmt"></dd><dt>returns</dt><dd class="cmt"><p>encoded string value
+</p></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -322,48 +334,6 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="twitter4s.net.HttpResponse#setResponseBody" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setResponseBody(responseBody:String):Unit"></a>
-      <a id="setResponseBody(String):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">setResponseBody</span><span class="params">(<span name="responseBody">responseBody: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">responseBody</dt><dd class="cmt"><p>
-</p></dd></dl></div>
-    </li><li name="twitter4s.net.HttpResponse#setResponseHeader" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setResponseHeader(responseHeader:scala.collection.mutable.Map[String,String]):Unit"></a>
-      <a id="setResponseHeader(Map[String,String]):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">setResponseHeader</span><span class="params">(<span name="responseHeader">responseHeader: <span class="extype" name="scala.collection.mutable.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">responseHeader</dt><dd class="cmt"><p>
-</p></dd></dl></div>
-    </li><li name="twitter4s.net.HttpResponse#setStatusCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="setStatusCode(statusCode:Int):Unit"></a>
-      <a id="setStatusCode(Int):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">setStatusCode</span><span class="params">(<span name="statusCode">statusCode: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">statusCode</dt><dd class="cmt"><p>
-</p></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>

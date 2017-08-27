@@ -1,15 +1,9 @@
 package twitter4s.net
 
 import scala.collection.mutable.Map
-import java.net.{HttpURLConnection,
-                 URL,
-                 URLEncoder}
-import java.io.{BufferedReader,
-                InputStream,
-                PrintStream,
-                InputStreamReader,
-                IOException,
-                OutputStream}
+import java.net.{HttpURLConnection, URL, URLEncoder}
+import java.io.{BufferedReader, IOException, InputStream, InputStreamReader, OutputStream, PrintStream}
+import java.util.Properties
 
 
 /**
@@ -20,28 +14,51 @@ import java.io.{BufferedReader,
 class HttpRequest {
 
   private [this] val endpointBaseURL:String = "https://api.twitter.com/1.1/"
-  private [this] val oauthRequestURL:String = "https://api.twitter.com/oauth/request_token"
   private [this] val encodeType:String = "UTF-8"
+
+  private [this] val POST:String = "POST"
+  private [this] val GET:String = "GET"
 
   /**
     * send GET request using http request
     * @param uri this uri append end point base url
     * @return response data:HttpResponse object
     */
-  def doGet(uri:String):HttpResponse = {
+  def getRequest(uri:String):HttpResponse = {
 
     //make http object
     val urlObject:URL = new URL(this.endpointBaseURL+uri)
-    val httpObject:HttpURLConnection = urlObject.openConnection().asInstanceOf[HttpURLConnection]
+    val httpObject:HttpURLConnection = urlObject.openConnection.asInstanceOf[HttpURLConnection]
 
     //setting method
-    httpObject.setRequestMethod("GET")
+    httpObject.setRequestMethod(this.GET)
     httpObject.setInstanceFollowRedirects(false)
 
     //starting connect
     httpObject.connect()
 
     getResponse(httpObject)
+  }
+
+
+  def postRequest(uri:String, requestHeader:Map[String,String]):HttpResponse = {
+
+    //make http object
+    val urlObject:URL = new URL(this.endpointBaseURL+uri)
+    var httpObject:HttpURLConnection = urlObject.openConnection.asInstanceOf[HttpURLConnection]
+
+    //setting method
+    httpObject.setRequestMethod(this.POST)
+    httpObject.setInstanceFollowRedirects(false)
+
+    //setting header
+    httpObject = makeRequestHeader(httpObject,requestHeader)
+
+    //starting connect
+    httpObject.connect
+
+    getResponse(httpObject)
+
   }
 
   /**
@@ -111,5 +128,18 @@ class HttpRequest {
       body.append("\n")
     }
     body.toString
+  }
+
+  /**
+    *
+    * @param requestHeaderMap
+    * @param header
+    * @return
+    */
+  def makeRequestHeader(header:HttpURLConnection, requestHeaderMap:Map[String,String]):HttpURLConnection = {
+    val httpRequestHeader:HttpURLConnection = header
+    for(keys <- requestHeaderMap.keys)
+      httpRequestHeader.setRequestProperty(keys, requestHeaderMap(keys))
+    httpRequestHeader
   }
 }
