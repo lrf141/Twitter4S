@@ -199,20 +199,6 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="twitter4s.net.HttpRequest#doGet" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="doGet(uri:String):twitter4s.net.HttpResponse"></a>
-      <a id="doGet(String):HttpResponse"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">doGet</span><span class="params">(<span name="uri">uri: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="HttpResponse.html" class="extype" name="twitter4s.net.HttpResponse">HttpResponse</a></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">send GET request using http request</p><div class="fullcomment"><div class="comment cmt"><p>send GET request using http request</p></div><dl class="paramcmts block"><dt class="param">uri</dt><dd class="cmt"><p>this uri append end point base url</p></dd><dt>returns</dt><dd class="cmt"><p>response data:HttpResponse object
-</p></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -271,6 +257,20 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="twitter4s.net.HttpRequest#getRequest" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getRequest(uri:String):twitter4s.net.HttpResponse"></a>
+      <a id="getRequest(String):HttpResponse"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getRequest</span><span class="params">(<span name="uri">uri: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="HttpResponse.html" class="extype" name="twitter4s.net.HttpResponse">HttpResponse</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">send GET request using http request</p><div class="fullcomment"><div class="comment cmt"><p>send GET request using http request</p></div><dl class="paramcmts block"><dt class="param">uri</dt><dd class="cmt"><p>this uri append end point base url</p></dd><dt>returns</dt><dd class="cmt"><p>response data:HttpResponse object
+</p></dd></dl></div>
     </li><li name="twitter4s.net.HttpRequest#getResponse" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getResponse(connection:java.net.HttpURLConnection):twitter4s.net.HttpResponse"></a>
       <a id="getResponse(HttpURLConnection):HttpResponse"></a>
@@ -311,6 +311,20 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="twitter4s.net.HttpRequest#makeRequestHeader" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="makeRequestHeader(header:java.net.HttpURLConnection,requestHeaderMap:scala.collection.mutable.Map[String,String]):java.net.HttpURLConnection"></a>
+      <a id="makeRequestHeader(HttpURLConnection,Map[String,String]):HttpURLConnection"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">makeRequestHeader</span><span class="params">(<span name="header">header: <span class="extype" name="java.net.HttpURLConnection">HttpURLConnection</span></span>, <span name="requestHeaderMap">requestHeaderMap: <span class="extype" name="scala.collection.mutable.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <span class="extype" name="java.net.HttpURLConnection">HttpURLConnection</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">header</dt><dd class="cmt"></dd><dt class="param">requestHeaderMap</dt><dd class="cmt"></dd><dt>returns</dt><dd class="cmt"><p>
+</p></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -350,6 +364,19 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="twitter4s.net.HttpRequest#postRequest" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="postRequest(uri:String,requestHeader:scala.collection.mutable.Map[String,String]):twitter4s.net.HttpResponse"></a>
+      <a id="postRequest(String,Map[String,String]):HttpResponse"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">postRequest</span><span class="params">(<span name="uri">uri: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="requestHeader">requestHeader: <span class="extype" name="scala.collection.mutable.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <a href="HttpResponse.html" class="extype" name="twitter4s.net.HttpResponse">HttpResponse</a></span>
+      </span>
+      </h4>
+      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>

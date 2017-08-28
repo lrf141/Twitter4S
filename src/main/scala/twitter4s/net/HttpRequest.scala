@@ -105,7 +105,7 @@ class HttpRequest {
 
           sb.append(value)
         }
-        resultMap += ((keys,sb.toString))
+        resultMap += keys -> sb.toString
       }
     }
     resultMap
