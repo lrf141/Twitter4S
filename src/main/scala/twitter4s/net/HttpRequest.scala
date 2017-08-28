@@ -3,7 +3,6 @@ package twitter4s.net
 import scala.collection.mutable.Map
 import java.net.{HttpURLConnection, URL, URLEncoder}
 import java.io.{BufferedReader, IOException, InputStream, InputStreamReader, OutputStream, PrintStream}
-import java.util.Properties
 
 
 /**

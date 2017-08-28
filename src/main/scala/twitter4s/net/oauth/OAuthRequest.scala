@@ -1,9 +1,10 @@
 package twitter4s.net.oauth
 
 import java.net.{HttpURLConnection, URL}
+import scala.collection.mutable.Map
 
 /**
-  * Created by rabbitfoot on 17/08/27.
+  * Created by lrf141 on 17/08/27.
   * @since 1.0.0
   */
 class OAuthRequest {
@@ -40,6 +41,26 @@ class OAuthRequest {
     httpURLConnection.setRequestProperty("oauth_token",accessToken)
     httpURLConnection.setRequestProperty("oauth_version", "1.0")
     0
+  }
+
+
+  /**
+    * return oauth parameter as Map[String,String]
+    * @param consumerKey
+    * @param accessToken
+    * @return parameter
+    */
+  def getOAuthParamMap(consumerKey:String, accessToken:String):Map[String,String] = {
+
+    val paramMap:Map[String,String] = Map.empty[String,String]
+    paramMap += "oauth_consumer_key" -> consumerKey
+    paramMap += "oauth_nonce" -> getNonce
+    paramMap += "oauth_signature_method" -> "HMAC-SHA1"
+    paramMap += "oauth_timestamp" -> getTimestamp
+    paramMap += "oauth_token" -> accessToken
+    paramMap += "oauth_version" -> "1.0"
+
+    paramMap
   }
 
 
