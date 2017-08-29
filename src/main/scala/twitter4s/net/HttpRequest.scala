@@ -1,8 +1,15 @@
 package twitter4s.net
 
-import scala.collection.mutable.Map
+import scala.collection.mutable.{Map, SortedMap}
+import scala.collection.JavaConverters._
 import java.net.{HttpURLConnection, URL, URLEncoder}
 import java.io.{BufferedReader, IOException, InputStream, InputStreamReader, OutputStream, PrintStream}
+
+import twitter4s.net.oauth.OAuthRequest
+import twitter4s.net.HttpResponse
+import twitter4s.core.APIKeys
+
+import scala.collection.mutable
 
 
 /**
@@ -10,7 +17,7 @@ import java.io.{BufferedReader, IOException, InputStream, InputStreamReader, Out
   * @author lrf141
   * @since 1.0.0
   */
-class HttpRequest {
+object HttpRequest {
 
   private [this] val endpointBaseURL:String = "https://api.twitter.com/1.1/"
   private [this] val encodeType:String = "UTF-8"
@@ -23,37 +30,59 @@ class HttpRequest {
     * @param uri this uri append end point base url
     * @return response data:HttpResponse object
     */
-  def getRequest(uri:String):HttpResponse = {
-
-    //make http object
-    val urlObject:URL = new URL(this.endpointBaseURL+uri)
-    val httpObject:HttpURLConnection = urlObject.openConnection.asInstanceOf[HttpURLConnection]
-
-    //setting method
-    httpObject.setRequestMethod(this.GET)
-    httpObject.setInstanceFollowRedirects(false)
-
-    //starting connect
-    httpObject.connect()
-
-    getResponse(httpObject)
-  }
-
-
-  def postRequest(uri:String, requestHeader:Map[String,String]):HttpResponse = {
+  def get(uri:String):HttpResponse = {
 
     //make http object
     val urlObject:URL = new URL(this.endpointBaseURL+uri)
     var httpObject:HttpURLConnection = urlObject.openConnection.asInstanceOf[HttpURLConnection]
 
     //setting method
+    httpObject.setRequestMethod(this.GET)
+
+    val api:Map[String,String] = APIKeys.getKeysAsMap
+    var paramMap:mutable.SortedMap[String,String] = OAuthRequest.getOAuthParamMap(api("consumer key"),api("access token"))
+
+    val signature:String = OAuthRequest.makeSignature(api("consumer key"), api("access token"), this.GET, paramMap)
+    paramMap += ("oauth_signature" -> signature)
+
+    val authHeader:String = OAuthRequest.makeAuthorizationHeader(paramMap)
+
+    //setting http request header
+    httpObject.setRequestProperty("Authorization",s"${authHeader}")
+
+    httpObject.connect
+
+    getResponse(httpObject)
+
+
+  }
+
+
+  /**
+    * @param uri
+    * @param requestHeader
+    * @return
+    */
+  def post(uri:String, requestHeader:Map[String,String]):HttpResponse = {
+
+    //make http object
+    val urlObject:URL = new URL(this.endpointBaseURL+uri)
+    val httpObject:HttpURLConnection = urlObject.openConnection.asInstanceOf[HttpURLConnection]
+
+    //setting method
     httpObject.setRequestMethod(this.POST)
-    httpObject.setInstanceFollowRedirects(false)
 
-    //setting header
-    httpObject = makeRequestHeader(httpObject,requestHeader)
+    val api:Map[String,String] = APIKeys.getKeysAsMap
+    var paramMap:mutable.SortedMap[String,String] = OAuthRequest.getOAuthParamMap(api("consumer key"),api("access token"))
 
-    //starting connect
+    val signature:String = OAuthRequest.makeSignature(api("consumer key"), api("access token"), this.POST, paramMap)
+    paramMap += ("oauth_signature" -> signature)
+
+    val authHeader:String = OAuthRequest.makeAuthorizationHeader(paramMap)
+
+    //setting http request header
+    httpObject.setRequestProperty("Authorization",s"${authHeader}")
+
     httpObject.connect
 
     getResponse(httpObject)
@@ -73,8 +102,13 @@ class HttpRequest {
     httpResponse.setStatusCode(connection.getResponseCode)
 
     //get response header
-    val headerMap = connection.getHeaderFields.asInstanceOf[Map[String,List[String]]]
-    val resultMap:Map[String,String] = convertHeader(headerMap)
+    val headerMap:java.util.Map[String,java.util.List[String]] = connection.getHeaderFields
+
+    var headerMapAsScala:mutable.Map[String,List[String]] = Map.empty[String,List[String]]
+    for(keys <- headerMap.keySet.asScala.toList)
+      headerMapAsScala += keys -> headerMap.get(keys).asScala.toList
+
+    val resultMap:Map[String,String] = convertHeader(headerMapAsScala)
     httpResponse.setResponseHeader(resultMap)
 
     //get response body
