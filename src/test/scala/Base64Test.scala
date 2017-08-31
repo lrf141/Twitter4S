@@ -5,7 +5,7 @@ import org.scalatest.Matchers._
 import twitter4s.util.Base64Translator
 
 /**
-  * Created by rabbitfoot on 17/08/27.
+  * Created by lrf141 on 17/08/27.
   */
 class Base64Test extends FunSpec{
 

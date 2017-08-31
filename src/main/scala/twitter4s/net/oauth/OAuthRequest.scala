@@ -1,12 +1,11 @@
 package twitter4s.net.oauth
 
-import java.net.{HttpURLConnection, URL, URLEncoder}
-import javax.crypto.Mac
+import java.net.URLEncoder
+import javax.crypto.{Mac, SecretKey}
 import javax.crypto.spec.SecretKeySpec
 
-import scala.collection.mutable.{Map, SortedMap}
-import twitter4s.core.APIKeys
-import twitter4s.util.Base64Translator
+import scala.collection.mutable.TreeMap
+import org.apache.commons.codec.binary.Base64
 
 import scala.collection.mutable
 
@@ -25,16 +24,16 @@ object OAuthRequest {
 
   private [this] val oauthTokenSecret:String = ""
 
-
   /**
-    * return oauth parameter as Map[String,String]
+    *
     * @param consumerKey
     * @param accessToken
-    * @return parameter
+    * @return
     */
-  def getOAuthParamMap(consumerKey:String, accessToken:String):SortedMap[String,String] = {
+  def getOauthParamMap(consumerKey:String, accessToken:String):mutable.TreeMap[String,String] = {
 
-    val paramMap:SortedMap[String,String] = SortedMap.empty[String,String]
+    var paramMap:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String,String]
+
     paramMap += "oauth_consumer_key" -> consumerKey
     paramMap += "oauth_nonce" -> getNonce
     paramMap += "oauth_signature_method" -> "HMAC-SHA1"
@@ -43,55 +42,112 @@ object OAuthRequest {
     paramMap += "oauth_version" -> "1.0"
 
     paramMap
-  }
 
-  /**
-    * @param params
-    * @return
-    */
-  private def makeOauthSignature(params:SortedMap[String,String]):String = {
-
-    var paramString: String = ""
-    for (keys <- params.keys)
-      paramString += s"&${keys}=${params(keys)}"
-
-    //remove first "&"
-    paramString.tail
   }
 
   /**
     *
-    * @param consumerSecret
     * @param method
-    * @param params
+    * @param url
+    * @param urlParam
+    * @param oauthParam
     * @return
     */
-  def makeSignature(consumerSecret:String,accessToken:String,method:String,params:SortedMap[String,String]):String = {
+  def getSignatureBaseString(method:String, url:String, urlParam:mutable.TreeMap[String,String], oauthParam:mutable.TreeMap[String,String]):String = {
 
-    val target:String = makeOauthSignature(params)
+    val paramString:StringBuffer = new StringBuffer
 
-    //make signature key
-    val signatureKey:String = getUrlEncode(consumerSecret) + "&" + getUrlEncode(accessToken)
-    val signedKey:SecretKeySpec = new SecretKeySpec(signatureKey.getBytes,"HmacSHA1")
-    val mac:Mac = Mac.getInstance(signedKey.getAlgorithm)
-    mac.init(signedKey)
-    val rawHmac:Array[Byte] = mac.doFinal(target.getBytes)
+    var treeMap:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String,String]
 
-    //return signature key
-    Base64Translator.encode(rawHmac.toString)
+    urlParam.keys.foreach({ key =>
+      treeMap += key -> urlParam(key)
+    })
+    oauthParam.keys.foreach({ key =>
+      treeMap += key -> oauthParam(key)
+    })
+
+    for(keys <- treeMap.keys)
+      paramString.append("&" + keys + "=" + treeMap(keys))
+
+    val template:String = "%s&%s&%s"
+    val signature:String = String.format(
+      template,
+      URLEncoder.encode(method, this.charSet),
+      URLEncoder.encode(url, this.charSet),
+      URLEncoder.encode(paramString.toString.tail, this.charSet)
+    )
+
+    signature
   }
 
   /**
-    * @param params
+    * @param signature
+    * @param paramMap
+    * @param consumerSecret
+    * @param accessSecret
     * @return
     */
-  def makeAuthorizationHeader(params:SortedMap[String,String]):String = {
-    var paramStr: String = ""
-    for(keys <- params.keys)
-      paramStr += ", " + keys + "=\"" + getUrlEncode(params(keys)) + "\""
-    paramStr.drop(2)
+  def getAuthHeader(signature:String, paramMap: TreeMap[String,String], consumerSecret:String, accessSecret:String):String = {
+    val compositeKey:String = URLEncoder.encode(consumerSecret,this.charSet) + "&" + URLEncoder.encode(accessSecret, this.charSet)
+    val oauthSignature:String = computeSignature(signature,compositeKey)
+    val oauthSignatureEncoded:String = URLEncoder.encode(oauthSignature,this.charSet)
+
+    val authorizationHeaderValueTemp:String =
+      "OAuth oauth_consumer_key=\"%s\", oauth_nonce=\"%s\", oauth_signature=\"%s\", " +
+        "oauth_signature_method=\"%s\", oauth_timestamp=\"%s\", oauth_token=\"%s\", oauth_version=\"%s\"";
+
+    String.format(
+      authorizationHeaderValueTemp,
+      paramMap("oauth_consumer_key"),
+      paramMap("oauth_nonce"),
+      oauthSignatureEncoded,
+      paramMap("oauth_signature_method"),
+      paramMap("oauth_timestamp"),
+      paramMap("oauth_token"),
+      paramMap("oauth_version")
+    )
   }
 
+
+  /**
+    * @param url
+    * @param paramMap
+    * @return
+    */
+  def getURLWithParam(url:String, paramMap:mutable.TreeMap[String,String]):String = {
+
+    val strBuffer:StringBuffer = new StringBuffer(url)
+    var treeMap:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String,String]
+    for(keys <- paramMap.keys)
+      treeMap += keys -> paramMap(keys)
+
+    for(keys <- treeMap.keys){
+      if(keys == treeMap.firstKey)
+        strBuffer.append("?")
+      else
+        strBuffer.append("&")
+      strBuffer.append(keys + "=" + treeMap(keys))
+    }
+
+    strBuffer.toString
+  }
+
+
+  /**
+    * @param baseString
+    * @param keyString
+    * @return
+    */
+  def computeSignature(baseString:String, keyString:String):String = {
+    val keyBytes = keyString.getBytes
+    val secretKey:SecretKey = new SecretKeySpec(keyBytes,"HmacSHA1")
+
+    val mac:Mac = Mac.getInstance("HmacSHA1")
+    mac.init(secretKey)
+
+    val text:Array[Byte] = baseString.getBytes
+    new String(Base64.encodeBase64(mac.doFinal(text))).trim
+  }
 
   /**
     * set callback url

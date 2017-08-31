@@ -5,7 +5,7 @@ import scala.collection.mutable.Map
 /**
   * Created by lrf141 on 17/08/29.
   */
-object APIKeys {
+class APIKeys {
 
   private [this] var ck:String = null
   private [this] var cs:String = null
@@ -27,26 +27,10 @@ object APIKeys {
   }
 
   /**
-    * set consumer key and consumer secret key when you use
-    * OAuth1.0 Authentication
-    * @param _ck
-    * @param _cs
-    */
-  def setKeys(_ck:String, _cs:String):Unit = {
-    this.ck = _ck
-    this.cs = _cs
-  }
-
-  /**
     * return all api keys
     * @return api keys as List[String]
     */
-  def getKeysAsList:List[String] = {
-    if(this.at == null || this.as == null)
-      List(this.ck, this.cs, this.at, this.as)
-    else
-      List(this.ck, this.cs)
-  }
+  def getKeysAsList:List[String] = List(this.ck, this.cs,this.at,this.as)
 
   /**
     * @return Map[String,String]

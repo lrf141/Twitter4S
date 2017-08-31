@@ -1,12 +1,11 @@
 package twitter4s.net
 
-import scala.collection.mutable.{Map, SortedMap}
+import scala.collection.mutable.Map
 import scala.collection.JavaConverters._
-import java.net.{HttpURLConnection, URL, URLEncoder}
-import java.io.{BufferedReader, IOException, InputStream, InputStreamReader, OutputStream, PrintStream}
+import java.net.{HttpURLConnection, URL, URLConnection}
+import java.io.{BufferedReader, InputStream, InputStreamReader}
 
 import twitter4s.net.oauth.OAuthRequest
-import twitter4s.net.HttpResponse
 import twitter4s.core.APIKeys
 
 import scala.collection.mutable
@@ -17,7 +16,7 @@ import scala.collection.mutable
   * @author lrf141
   * @since 1.0.0
   */
-object HttpRequest {
+class HttpRequest(_keys:APIKeys) {
 
   private [this] val endpointBaseURL:String = "https://api.twitter.com/1.1/"
   private [this] val encodeType:String = "UTF-8"
@@ -25,67 +24,57 @@ object HttpRequest {
   private [this] val POST:String = "POST"
   private [this] val GET:String = "GET"
 
+  private [this] var apiKeys:APIKeys = _keys
+
   /**
-    * send GET request using http request
-    * @param uri this uri append end point base url
-    * @return response data:HttpResponse object
+    * @param uri
+    * @param param
+    * @return
     */
-  def get(uri:String):HttpResponse = {
+  def get(uri:String, param:mutable.TreeMap[String,String]):String = {
 
-    //make http object
-    val urlObject:URL = new URL(this.endpointBaseURL+uri)
-    var httpObject:HttpURLConnection = urlObject.openConnection.asInstanceOf[HttpURLConnection]
+    val url:String = this.endpointBaseURL + uri
 
-    //setting method
-    httpObject.setRequestMethod(this.GET)
+    val keys:List[String] = this.apiKeys.getKeysAsList
 
-    val api:Map[String,String] = APIKeys.getKeysAsMap
-    var paramMap:mutable.SortedMap[String,String] = OAuthRequest.getOAuthParamMap(api("consumer key"),api("access token"))
+    val oauthMap = OAuthRequest.getOauthParamMap(keys(0),keys(2))
+    val urlwithparam:String = OAuthRequest.getURLWithParam(url,param)
+    val signature:String = OAuthRequest.getSignatureBaseString(this.GET,url,param,oauthMap)
+    println(signature)
+    val authSignature:String = OAuthRequest.getAuthHeader(signature,oauthMap,keys(1),keys(3))
 
-    val signature:String = OAuthRequest.makeSignature(api("consumer key"), api("access token"), this.GET, paramMap)
-    paramMap += ("oauth_signature" -> signature)
+    val urlConnection:URLConnection = new URL(urlwithparam).openConnection
+    urlConnection.setRequestProperty("Authorization",authSignature)
+    println(authSignature)
 
-    val authHeader:String = OAuthRequest.makeAuthorizationHeader(paramMap)
-
-    //setting http request header
-    httpObject.setRequestProperty("Authorization",s"${authHeader}")
-
-    httpObject.connect
-
-    getResponse(httpObject)
-
-
+    val br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream))
+    convertBody(br)
   }
 
 
   /**
     * @param uri
-    * @param requestHeader
+    * @param param
     * @return
     */
-  def post(uri:String, requestHeader:Map[String,String]):HttpResponse = {
+  def post(uri:String, param:mutable.TreeMap[String,String]):String = {
 
-    //make http object
-    val urlObject:URL = new URL(this.endpointBaseURL+uri)
-    val httpObject:HttpURLConnection = urlObject.openConnection.asInstanceOf[HttpURLConnection]
+    val url:String = this.endpointBaseURL + uri
 
-    //setting method
-    httpObject.setRequestMethod(this.POST)
+    val keys:List[String] = this.apiKeys.getKeysAsList
 
-    val api:Map[String,String] = APIKeys.getKeysAsMap
-    var paramMap:mutable.SortedMap[String,String] = OAuthRequest.getOAuthParamMap(api("consumer key"),api("access token"))
+    val oauthMap = OAuthRequest.getOauthParamMap(keys(0),keys(2))
+    val urlwithparam:String = OAuthRequest.getURLWithParam(url,param)
+    val signature:String = OAuthRequest.getSignatureBaseString(this.POST,url,param,oauthMap)
+    val authSignature:String = OAuthRequest.getAuthHeader(signature,oauthMap,keys(1),keys(3))
 
-    val signature:String = OAuthRequest.makeSignature(api("consumer key"), api("access token"), this.POST, paramMap)
-    paramMap += ("oauth_signature" -> signature)
+    val urlConnection:HttpURLConnection = new URL(urlwithparam).openConnection.asInstanceOf[HttpURLConnection]
+    urlConnection.setRequestMethod(this.POST)
+    urlConnection.setRequestProperty("Authorization",authSignature)
+    urlConnection.connect
 
-    val authHeader:String = OAuthRequest.makeAuthorizationHeader(paramMap)
-
-    //setting http request header
-    httpObject.setRequestProperty("Authorization",s"${authHeader}")
-
-    httpObject.connect
-
-    getResponse(httpObject)
+    val br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream))
+    convertBody(br)
 
   }
 
@@ -94,12 +83,9 @@ object HttpRequest {
     * @param connection HttpURLConnection Object
     * @return
     */
-  def getResponse(connection: HttpURLConnection):HttpResponse = {
+  def getResponse(connection: URLConnection):HttpResponse = {
 
     val httpResponse:HttpResponse = new HttpResponse
-
-    //get status code
-    httpResponse.setStatusCode(connection.getResponseCode)
 
     //get response header
     val headerMap:java.util.Map[String,java.util.List[String]] = connection.getHeaderFields
@@ -175,4 +161,6 @@ object HttpRequest {
       httpRequestHeader.setRequestProperty(keys, requestHeaderMap(keys))
     httpRequestHeader
   }
+
+  def setApiKeys(api:APIKeys) = this.apiKeys = api
 }
