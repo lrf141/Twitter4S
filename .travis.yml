@@ -1,4 +1,4 @@
 language: scala
-sudo: false
+test: sbt test
 jdk: oraclejdk8
 scala: 2.12.3
