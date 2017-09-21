@@ -1,8 +1,5 @@
 package twitter4s.core
 
-import java.net.URLEncoder
-
-import org.apache.commons.codec.net.URLCodec
 import twitter4s.net.HttpRequest
 import twitter4s.net.oauth.OAuthRequest
 
