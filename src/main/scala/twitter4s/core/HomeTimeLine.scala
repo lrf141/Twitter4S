@@ -16,14 +16,16 @@ case class HomeTimeLine(coordinates: String,
                         retweet_count: String,
                         //in_reply_to_user_id_str: String,
                         geo: String,
-                        retweeted:Boolean,
+                        retweeted: Boolean,
                         in_reply_to_user_id: String,
                         place: String,
                         source: String,
                         user: Seq[User]
                        )
 
-case class Entities(urls:String, hashtags:String, user_mentions:String)
+case class Entities(urls: String,
+                    hashtags: String,
+                    user_mentions: String)
 
 case class User(name: String,
                 profile_sidebar_fill_color: String,
