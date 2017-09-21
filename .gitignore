@@ -3,4 +3,5 @@
 .idea/
 project/
 target/
-test/
+GetTest.scala
+PostTest.scala
