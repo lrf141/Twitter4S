@@ -30,7 +30,7 @@ object OAuthRequest {
     * @param accessToken
     * @return
     */
-  def getOauthParamMap(consumerKey:String, accessToken:String):mutable.TreeMap[String,String] = {
+  def getOauthParamMap(consumerKey: String, accessToken: String):mutable.TreeMap[String,String] = {
 
     var paramMap:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String,String]
 
@@ -46,14 +46,13 @@ object OAuthRequest {
   }
 
   /**
-    *
     * @param method
     * @param url
     * @param urlParam
     * @param oauthParam
     * @return
     */
-  def getSignatureBaseString(method:String, url:String, urlParam:mutable.TreeMap[String,String], oauthParam:mutable.TreeMap[String,String]):String = {
+  def getSignatureBaseString(method: String, url: String, urlParam: mutable.TreeMap[String,String], oauthParam: mutable.TreeMap[String,String]):String = {
 
     val paramString:StringBuffer = new StringBuffer
 
@@ -87,7 +86,7 @@ object OAuthRequest {
     * @param accessSecret
     * @return
     */
-  def getAuthHeader(signature:String, paramMap: TreeMap[String,String], consumerSecret:String, accessSecret:String):String = {
+  def getAuthHeader(signature: String, paramMap: TreeMap[String,String], consumerSecret: String, accessSecret: String):String = {
     val compositeKey:String = URLEncoder.encode(consumerSecret,this.charSet) + "&" + URLEncoder.encode(accessSecret, this.charSet)
     val oauthSignature:String = computeSignature(signature,compositeKey)
     val oauthSignatureEncoded:String = URLEncoder.encode(oauthSignature,this.charSet)
@@ -114,7 +113,7 @@ object OAuthRequest {
     * @param paramMap
     * @return
     */
-  def getURLWithParam(url:String, paramMap:mutable.TreeMap[String,String]):String = {
+  def getURLWithParam(url: String, paramMap: mutable.TreeMap[String,String]):String = {
 
     val strBuffer:StringBuffer = new StringBuffer(url)
     var treeMap:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String,String]
@@ -138,7 +137,7 @@ object OAuthRequest {
     * @param keyString
     * @return
     */
-  def computeSignature(baseString:String, keyString:String):String = {
+  def computeSignature(baseString: String, keyString: String):String = {
     val keyBytes = keyString.getBytes
     val secretKey:SecretKey = new SecretKeySpec(keyBytes,"HmacSHA1")
 
@@ -153,7 +152,7 @@ object OAuthRequest {
     * set callback url
     * @param url wanna update url
     */
-  def setCallbackURL(url:String):Unit =  this.callbackURL = url
+  def setCallbackURL(url: String):Unit =  this.callbackURL = url
 
 
   /**
@@ -180,5 +179,5 @@ object OAuthRequest {
     * @param target
     * @return
     */
-  def getUrlEncode(target:String):String = URLEncoder.encode(target,this.charSet)
+  def getUrlEncode(target: String):String = URLEncoder.encode(target,this.charSet)
 }

@@ -16,7 +16,7 @@ import scala.collection.mutable
   * @author lrf141
   * @since 1.0.0
   */
-class HttpRequest(_keys:APIKeys) {
+class HttpRequest(_keys: APIKeys) {
 
   private [this] val endpointBaseURL:String = "https://api.twitter.com/1.1/"
   private [this] val encodeType:String = "UTF-8"
@@ -31,7 +31,7 @@ class HttpRequest(_keys:APIKeys) {
     * @param param
     * @return
     */
-  def get(uri:String, param:mutable.TreeMap[String,String]):String = {
+  def get(uri: String, param: mutable.TreeMap[String,String]):String = {
 
     val url:String = this.endpointBaseURL + uri
 
@@ -57,7 +57,7 @@ class HttpRequest(_keys:APIKeys) {
     * @param param
     * @return
     */
-  def post(uri:String, param:mutable.TreeMap[String,String]):String = {
+  def post(uri: String, param: mutable.TreeMap[String,String]):String = {
 
     val url:String = this.endpointBaseURL + uri
 
@@ -137,7 +137,7 @@ class HttpRequest(_keys:APIKeys) {
     * @param reader body contents buffer
     * @return response body as String data
     */
-  private def convertBody(reader:BufferedReader):String = {
+  private def convertBody(reader: BufferedReader):String = {
 
     val body:StringBuilder = new StringBuilder
     var str:String = ""
@@ -154,7 +154,7 @@ class HttpRequest(_keys:APIKeys) {
     * @param header
     * @return
     */
-  def makeRequestHeader(header:HttpURLConnection, requestHeaderMap:Map[String,String]):HttpURLConnection = {
+  def makeRequestHeader(header: HttpURLConnection, requestHeaderMap: Map[String,String]):HttpURLConnection = {
     val httpRequestHeader:HttpURLConnection = header
     for(keys <- requestHeaderMap.keys)
       httpRequestHeader.setRequestProperty(keys, requestHeaderMap(keys))
@@ -164,5 +164,5 @@ class HttpRequest(_keys:APIKeys) {
   /**
     * @param api
     */
-  def setApiKeys(api:APIKeys):Unit = this.apiKeys = api
+  def setApiKeys(api: APIKeys):Unit = this.apiKeys = api
 }
