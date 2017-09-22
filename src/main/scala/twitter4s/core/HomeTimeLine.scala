@@ -55,7 +55,8 @@ case class MinTimeLineData(created_at: String,
                            id_str: String,
                            text: String,
                            id: Long,
-                           retweet_count: Int)
+                           retweet_count: Int,
+                           user: MinUser)
 
 /**
   * @param urls
@@ -159,26 +160,7 @@ case class User(name: String,
                 screen_name: String
                )
 
-/**
-  * @param name
-  * @param id_str
-  * @param followers_count
-  * @param `protected `
-  * @param url
-  * @param favourites_count
-  * @param description
-  * @param statuses_count
-  * @param friends_count
-  * @param screen_name
-  */
+
 case class MinUser(name: String,
-                   id_str: String,
-                   followers_count: Int,
-                   `protected `: Boolean,
-                   url: String,
-                   favourites_count: Int,
-                   description: String,
-                   statuses_count: Int,
-                   friends_count: Int,
                    screen_name: String
                   )

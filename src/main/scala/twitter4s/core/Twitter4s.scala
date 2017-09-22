@@ -35,6 +35,8 @@ class Twitter4s {
     //get as Json
     val result:String = httpRequest.get(uri,mutable.TreeMap.empty[String,String])
 
+    val decode = Decoder[MinUser].prepare(_.downField("user"))
+
     //parse tweet status
     val homeTimeLine:Seq[MinTimeLineData] = parse(result).flatMap(_.as[Seq[MinTimeLineData]]) match {
       case Right(tweets) => tweets
@@ -44,21 +46,14 @@ class Twitter4s {
       }
 
     }
-
-    val split_json = result.split(",")
-    val names = split_json.filter(_.startsWith("\"name\""))
-
     var index: Int = 0
 
     homeTimeLine.foreach{tweet =>
 
-      val username:String = names(index)
       index += 1
-      val raw_name = username.split(":")(1).replaceAll("\"","")
       //append tweet status
       val status:StringBuilder = new StringBuilder
-
-      status.append(raw_name + ":")
+      status.append(tweet.user.name+" @"+ tweet.user.screen_name)
       status.append(tweet.text + ": " + tweet.created_at)
 
       println(status.toString)
