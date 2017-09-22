@@ -46,11 +46,9 @@ class Twitter4s {
       }
 
     }
-    var index: Int = 0
 
     homeTimeLine.foreach{tweet =>
 
-      index += 1
       //append tweet status
       val status:StringBuilder = new StringBuilder
       status.append(tweet.user.name+" @"+ tweet.user.screen_name)
@@ -60,6 +58,7 @@ class Twitter4s {
     }
 
   }
+
 
   /**
     * @param tweet
