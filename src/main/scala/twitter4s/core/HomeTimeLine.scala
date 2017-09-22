@@ -62,7 +62,7 @@ case class MinTimeLineData(created_at: String,
   * @param hashtags
   * @param user_mentions
   */
-case class Entities(urls: Seq[URLS] = null,
+case class EntitiesUrls(urls: Seq[URLS] = null,
                     hashtags: List[String] = null,
                     user_mentions: List[String] = null
                    )
@@ -129,7 +129,7 @@ case class User(name: String,
                 id_str: String,
                 is_translator: Boolean,
                 profile_link_color: Boolean,
-                entities: Seq[Entities],
+                entities: Seq[EntitiesUrls],
                 default_profile: Boolean,
                 url: String,
                 contributors_enabled: Boolean,

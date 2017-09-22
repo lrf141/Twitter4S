@@ -1,10 +1,11 @@
 import org.scalatest.FunSpec
 import org.scalatest.Matchers._
-import twitter4s.core.{MinTimeLineData, HomeTimeLine, MinUser}
+import twitter4s.core.{HomeTimeLine, MinTimeLineData, MinUser}
 import io.circe._
 import io.circe.syntax._
 import io.circe.generic.auto._
 import io.circe.Decoder
+import io.circe.parser._
 import io.circe.generic.semiauto.deriveDecoder
 
 
@@ -15,8 +16,11 @@ class JsonParseUserHomeTimeLineTest extends FunSpec{
 
   describe("json parse test"){
 
+    case class HomeTL()
+
+
     it("user 1"){
-      val parse = parser.decode[MinTimeLineData]("""
+      val p = parse("""[
                                       {
                                         "coordinates": null,
                                         "truncated": false,
@@ -103,7 +107,9 @@ class JsonParseUserHomeTimeLineTest extends FunSpec{
                                         },
                                         "in_reply_to_screen_name": null,
                                         "in_reply_to_status_id": null
-                                      }""") match {
+                                      }
+                                      ]
+                                  """).flatMap(_.as[Array[MinTimeLineData]]) match {
         case Right(data) => {
           println(data)
           true
@@ -115,7 +121,7 @@ class JsonParseUserHomeTimeLineTest extends FunSpec{
       }
 
 
-      parse should be (true)
+      p should be (true)
 
 
     }

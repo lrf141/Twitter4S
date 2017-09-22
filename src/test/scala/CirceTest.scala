@@ -36,7 +36,7 @@ class CirceTest extends FunSpec{
       res should be (true)
     }
 
-    it("simple 3"){
+    /**it("simple 3"){
       case class Status(hobby: String, lang: String)
       case class User(name: String, age:Int, status: Seq[Status])
 
@@ -47,9 +47,9 @@ class CirceTest extends FunSpec{
       }
 
       res should be (true)
-    }
+    }**/
 
-    it("simple 4"){
+    it("simple 3"){
 
       case class User(name: String)
 
