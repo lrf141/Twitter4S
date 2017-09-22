@@ -22,11 +22,18 @@ class Twitter4s {
     *
     */
   def getHomeTimeLine: Unit = {
+
     val uri:String = "statuses/home_timeline.json"
     val httpRequest:HttpRequest = new HttpRequest(apiKeys)
     httpRequest.setApiKeys(this.apiKeys)
-    val result = httpRequest.get(uri,mutable.TreeMap.empty[String,String])
-    println(result)
+
+    //get as Json
+    val result:String = httpRequest.get(uri,mutable.TreeMap.empty[String,String])
+
+    //remove first array []
+    val simpleJson:String = result.trim.tail.init
+
+    //println(simpleJson)
   }
 
   /**
@@ -41,7 +48,6 @@ class Twitter4s {
     requestParam += "status" -> OAuthRequest.getUrlEncode(tweet).replace("+","%20")
 
     val result:String = httpRequest.post(uri,requestParam)
-    println(result)
   }
 
   /**

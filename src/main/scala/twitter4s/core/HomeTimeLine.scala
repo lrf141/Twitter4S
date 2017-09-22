@@ -11,7 +11,6 @@ package twitter4s.core
   * @param favorited
   * @param id_str
   * @param in_reply_to_user_id_str
-  * @param entities
   * @param text
   * @param contributors
   * @param id
@@ -21,7 +20,6 @@ package twitter4s.core
   * @param in_reply_to_user_id
   * @param place
   * @param source
-  * @param user
   * @param in_reply_to_screen_name
   * @param in_reply_to_status_id
   */
@@ -31,7 +29,6 @@ case class HomeTimeLine(coordinates: String,
                         favorited: Boolean,
                         id_str: String,
                         in_reply_to_user_id_str: String,
-                        entities: Seq[Entities],
                         text: String,
                         contributors: String,
                         id: String,
@@ -42,10 +39,23 @@ case class HomeTimeLine(coordinates: String,
                         in_reply_to_user_id: String,
                         place: String,
                         source: String,
-                        user: Seq[User],
                         in_reply_to_screen_name: String,
                         in_reply_to_status_id: String
                        )
+
+/**
+  *
+  * @param created_at
+  * @param id_str
+  * @param text
+  * @param id
+  * @param retweet_count
+  */
+case class MinTimeLineData(created_at: String,
+                           id_str: String,
+                           text: String,
+                           id: Long,
+                           retweet_count: Int)
 
 /**
   * @param urls
@@ -148,3 +158,27 @@ case class User(name: String,
                 show_all_inline_media: Boolean,
                 screen_name: String
                )
+
+/**
+  * @param name
+  * @param id_str
+  * @param followers_count
+  * @param `protected `
+  * @param url
+  * @param favourites_count
+  * @param description
+  * @param statuses_count
+  * @param friends_count
+  * @param screen_name
+  */
+case class MinUser(name: String,
+                   id_str: String,
+                   followers_count: Int,
+                   `protected `: Boolean,
+                   url: String,
+                   favourites_count: Int,
+                   description: String,
+                   statuses_count: Int,
+                   friends_count: Int,
+                   screen_name: String
+                  )

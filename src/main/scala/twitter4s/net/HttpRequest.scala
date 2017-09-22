@@ -150,7 +150,6 @@ class HttpRequest(_keys:APIKeys) {
   }
 
   /**
-    *
     * @param requestHeaderMap
     * @param header
     * @return
@@ -162,5 +161,8 @@ class HttpRequest(_keys:APIKeys) {
     httpRequestHeader
   }
 
-  def setApiKeys(api:APIKeys) = this.apiKeys = api
+  /**
+    * @param api
+    */
+  def setApiKeys(api:APIKeys):Unit = this.apiKeys = api
 }

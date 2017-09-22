@@ -49,6 +49,20 @@ class CirceTest extends FunSpec{
       res should be (true)
     }
 
+    it("simple 4"){
+
+      case class User(name: String)
+
+      val res = decode[User]("""{"name": "lrf141", "age": 20}""") match {
+        case Right(user) => true
+        case Left(error) => false
+      }
+
+      res should be (true)
+
+    }
+
+
   }
 
 }
