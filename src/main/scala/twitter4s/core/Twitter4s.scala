@@ -35,8 +35,6 @@ class Twitter4s {
     //get as Json
     val result:String = httpRequest.get(uri,mutable.TreeMap.empty[String,String])
 
-    val decode = Decoder[MinUser].prepare(_.downField("user"))
-
     //parse tweet status
     val homeTimeLine:Seq[MinTimeLineData] = parse(result).flatMap(_.as[Seq[MinTimeLineData]]) match {
       case Right(tweets) => tweets
