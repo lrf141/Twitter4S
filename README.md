@@ -39,6 +39,30 @@ val twitter:Twitter4s = new Twitter4s
     println(twitter.getHomeTimeLine)
 ```
 
+### get your followers List as Seq
+
+```scala:getFollowersList.scala
+val twitter:Twitter4s = new Twitter4s
+    twitter.setAPIKeys("consumer key",
+      "consumer secret key",
+      "access token",
+      "access token secret")
+
+    println(twitter.getFollowersList)
+```
+
+### get your friends(follow) List as Seq
+
+```scala:getFriendsList.scala
+val twitter:Twitter4s = new Twitter4s
+    twitter.setAPIKeys("consumer key",
+      "consumer secret key",
+      "access token",
+      "access token secret")
+
+    println(twitter.getFriendsList)
+```
+
 ## Install
 
 You can integrate the latest Twitter4S build easily by using sbt.  
