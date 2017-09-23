@@ -19,5 +19,5 @@ case class UserTimeLine(created_at: String,
                         text: String,
                         id: Long,
                         retweet_count: Int,
-                        user: UserStatus
+                        user: TimeLineUser
                        )

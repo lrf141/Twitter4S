@@ -62,6 +62,35 @@ class CirceTest extends FunSpec{
 
     }
 
+    it("simple 4"){
+
+      case class UserArray(users: Seq[User])
+      case class User(name: String, age: Int)
+
+      val jsonString:String =
+        """
+          {
+          users: [
+          {"name": "lrf141","age": 20},
+          {"name": "duke", "age": 60}
+          ]
+          }
+        """
+
+      val res = decode[UserArray](jsonString) match {
+        case Right(users) => {
+          users.users.foreach(println _)
+          true
+        }
+        case Left(error) => {
+          println(error)
+          false
+        }
+      }
+
+
+    }
+
 
   }
 

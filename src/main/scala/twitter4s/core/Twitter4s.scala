@@ -2,12 +2,11 @@ package twitter4s.core
 
 import twitter4s.net.HttpRequest
 import twitter4s.net.oauth.OAuthRequest
-import twitter4s.UserTimeLine
+import twitter4s.{TimeLineUser, UserArray, UserStatus, UserTimeLine}
 
 import scala.collection.mutable
 import io.circe.parser._
 import io.circe.generic.auto._
-import io.circe._
 
 
 /**
@@ -24,7 +23,7 @@ class Twitter4s {
 
 
   /**
-    *
+    * get your home timeline and show on terminal
     */
   def getHomeTimeLine: Unit = {
 
@@ -49,10 +48,30 @@ class Twitter4s {
 
       //append tweet status
       val status:StringBuilder = new StringBuilder
-      status.append(tweet.user.name+" @"+ tweet.user.screen_name)
+      status.append(tweet.user.name +" @"+ tweet.user.screen_name)
       status.append(tweet.text + ": " + tweet.created_at)
 
       println(status.toString)
+    }
+
+  }
+
+  /**
+    *
+    */
+  def getFollowersList():Seq[UserStatus] = {
+
+    val uri:String = "followers/list.json"
+    val httpRequest:HttpRequest = new HttpRequest(apiKeys)
+    httpRequest.setApiKeys(this.apiKeys)
+
+    val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String, String]
+    requestParam += "cursor" -> "-1"
+
+    val response_json:String = httpRequest.get(uri,requestParam)
+    decode[UserArray](response_json) match {
+      case Right(userList) => userList.users
+      case Left(error) => null
     }
 
   }
