@@ -19,6 +19,7 @@ import scala.collection.mutable
 class Twitter4s {
 
   private [this] val apiKeys:APIKeys = new APIKeys
+  private [this] var httpRequest:HttpRequest = null
 
 
   /**
@@ -27,7 +28,6 @@ class Twitter4s {
   def getHomeTimeLine: Seq[UserTimeLine] = {
 
     val uri:String = "statuses/home_timeline.json"
-    val httpRequest:HttpRequest = new HttpRequest(apiKeys)
 
     //get as Json
     val result:String = httpRequest.get(uri,mutable.TreeMap.empty[String,String])
@@ -56,7 +56,6 @@ class Twitter4s {
   def getFollowersList:Seq[UserStatus] = {
 
     val uri:String = "followers/list.json"
-    val httpRequest:HttpRequest = new HttpRequest(apiKeys)
 
     val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String, String]
     requestParam += "cursor" -> "-1"
@@ -73,8 +72,6 @@ class Twitter4s {
     */
   def getFriendsList:Seq[UserStatus] = {
     val uri:String = "friends/list.json"
-    val httpRequest:HttpRequest = new HttpRequest(apiKeys)
-
 
     val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String, String]
     requestParam += "cursor" -> "-1"
@@ -90,7 +87,6 @@ class Twitter4s {
     */
   def updateStatus(tweet: String):Unit = {
     val uri:String = "statuses/update.json"
-    val httpRequest:HttpRequest = new HttpRequest(apiKeys)
 
     val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String,String]
     //included +, return 401
@@ -105,6 +101,9 @@ class Twitter4s {
     * @param _at access token
     * @param _as access token secret
     */
-  def setAPIKeys(_ck: String, _cs: String, _at: String, _as: String):Unit = this.apiKeys.setKeys(_ck,_cs,_at,_as)
+  def initialize(_ck: String, _cs: String, _at: String, _as: String):Unit = {
+    this.apiKeys.setKeys(_ck,_cs,_at,_as)
+    this.httpRequest = new HttpRequest(this.apiKeys)
+  }
 
 }
