@@ -2,11 +2,10 @@ package twitter4s.core
 
 import twitter4s.net.HttpRequest
 import twitter4s.net.oauth.OAuthRequest
-import twitter4s.{TimeLineUser, UserArray, UserStatus, UserTimeLine}
+import twitter4s.util.JsonDecoder
+import twitter4s.{UserStatus, UserTimeLine}
 
 import scala.collection.mutable
-import io.circe.parser._
-import io.circe.generic.auto._
 
 
 /**
@@ -35,14 +34,7 @@ class Twitter4s {
     val result:String = httpRequest.get(uri,mutable.TreeMap.empty[String,String])
 
     //parse tweet status
-    val homeTimeLine:Seq[UserTimeLine] = parse(result).flatMap(_.as[Seq[UserTimeLine]]) match {
-      case Right(tweets) => tweets
-      case Left(error) => {
-        println(error)
-        null
-      }
-
-    }
+    val homeTimeLine = JsonDecoder.decodeUserTimeLine(result)
 
     homeTimeLine.foreach{tweet =>
 
@@ -72,10 +64,7 @@ class Twitter4s {
     requestParam += "cursor" -> "-1"
 
     val response_json:String = httpRequest.get(uri,requestParam)
-    decode[UserArray](response_json) match {
-      case Right(userList) => userList.users
-      case Left(error) => null
-    }
+    JsonDecoder.decodeUserArray(response_json)
 
   }
 
@@ -93,10 +82,7 @@ class Twitter4s {
     requestParam += "cursor" -> "-1"
 
     val response_json:String = httpRequest.get(uri,requestParam)
-    decode[UserArray](response_json) match {
-      case Right(userList) => userList.users
-      case Left(error) => null
-    }
+    JsonDecoder.decodeUserArray(response_json)
   }
 
 
@@ -126,6 +112,6 @@ class Twitter4s {
   /**
     * @return apiKeys instance
     */
-  def getAPIKeys = this.apiKeys
+  private def getAPIKeys = this.apiKeys
 
 }
