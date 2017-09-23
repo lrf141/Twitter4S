@@ -4,9 +4,9 @@
     <groupId>twitter4s</groupId>
     <artifactId>twitter4s_2.12</artifactId>
     <packaging>jar</packaging>
-    <description>Twitter4S</description>
+    <description>twitter4s</description>
     <version>1.0.0</version>
-    <name>Twitter4S</name>
+    <name>twitter4s</name>
     <organization>
         <name>twitter4s</name>
     </organization>
@@ -43,12 +43,4 @@
             <version>0.8.0</version>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>typesafereleases</id>
-            <name>typesafe-releases</name>
-            <url>http://repo.typesafe.com/typesafe/releases/</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
 </project>
