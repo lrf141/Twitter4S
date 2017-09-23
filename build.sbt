@@ -12,4 +12,4 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-parser" % "0.8.0"
 )
 
-publishTo := Some(Resolver.file("twitter4s",file("."))(Patterns(true, Resolver.mavenStyleBasePattern)))
+publishTo := Some(Resolver.file("Twitter4S",file("./twitter4s"))(Patterns(true, Resolver.mavenStyleBasePattern)))
