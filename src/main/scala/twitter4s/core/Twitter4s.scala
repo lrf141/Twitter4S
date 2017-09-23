@@ -2,11 +2,10 @@ package twitter4s.core
 
 import twitter4s.net.HttpRequest
 import twitter4s.net.oauth.OAuthRequest
-import twitter4s.{TimeLineUser, UserArray, UserStatus, UserTimeLine}
+import twitter4s.util.JsonDecoder
+import twitter4s.{UserStatus, UserTimeLine}
 
 import scala.collection.mutable
-import io.circe.parser._
-import io.circe.generic.auto._
 
 
 /**
@@ -20,6 +19,7 @@ import io.circe.generic.auto._
 class Twitter4s {
 
   private [this] val apiKeys:APIKeys = new APIKeys
+  private [this] var httpRequest:HttpRequest = null
 
 
   /**
@@ -28,21 +28,12 @@ class Twitter4s {
   def getHomeTimeLine: Seq[UserTimeLine] = {
 
     val uri:String = "statuses/home_timeline.json"
-    val httpRequest:HttpRequest = new HttpRequest(apiKeys)
-    httpRequest.setApiKeys(this.apiKeys)
 
     //get as Json
     val result:String = httpRequest.get(uri,mutable.TreeMap.empty[String,String])
 
     //parse tweet status
-    val homeTimeLine:Seq[UserTimeLine] = parse(result).flatMap(_.as[Seq[UserTimeLine]]) match {
-      case Right(tweets) => tweets
-      case Left(error) => {
-        println(error)
-        null
-      }
-
-    }
+    val homeTimeLine = JsonDecoder.decodeUserTimeLine(result)
 
     homeTimeLine.foreach{tweet =>
 
@@ -65,17 +56,12 @@ class Twitter4s {
   def getFollowersList:Seq[UserStatus] = {
 
     val uri:String = "followers/list.json"
-    val httpRequest:HttpRequest = new HttpRequest(apiKeys)
-    httpRequest.setApiKeys(this.apiKeys)
 
     val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String, String]
     requestParam += "cursor" -> "-1"
 
     val response_json:String = httpRequest.get(uri,requestParam)
-    decode[UserArray](response_json) match {
-      case Right(userList) => userList.users
-      case Left(error) => null
-    }
+    JsonDecoder.decodeUserArray(response_json)
 
   }
 
@@ -86,17 +72,12 @@ class Twitter4s {
     */
   def getFriendsList:Seq[UserStatus] = {
     val uri:String = "friends/list.json"
-    val httpRequest:HttpRequest = new HttpRequest(apiKeys)
-    httpRequest.setApiKeys(this.apiKeys)
 
     val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String, String]
     requestParam += "cursor" -> "-1"
 
     val response_json:String = httpRequest.get(uri,requestParam)
-    decode[UserArray](response_json) match {
-      case Right(userList) => userList.users
-      case Left(error) => null
-    }
+    JsonDecoder.decodeUserArray(response_json)
   }
 
 
@@ -106,8 +87,7 @@ class Twitter4s {
     */
   def updateStatus(tweet: String):Unit = {
     val uri:String = "statuses/update.json"
-    val httpRequest:HttpRequest = new HttpRequest(apiKeys)
-    httpRequest.setApiKeys(this.apiKeys)
+
     val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String,String]
     //included +, return 401
     requestParam += "status" -> OAuthRequest.getUrlEncode(tweet).replace("+","%20")
@@ -121,11 +101,9 @@ class Twitter4s {
     * @param _at access token
     * @param _as access token secret
     */
-  def setAPIKeys(_ck: String, _cs: String, _at: String, _as: String):Unit = this.apiKeys.setKeys(_ck,_cs,_at,_as)
-
-  /**
-    * @return apiKeys instance
-    */
-  def getAPIKeys = this.apiKeys
+  def initialize(_ck: String, _cs: String, _at: String, _as: String):Unit = {
+    this.apiKeys.setKeys(_ck,_cs,_at,_as)
+    this.httpRequest = new HttpRequest(this.apiKeys)
+  }
 
 }
