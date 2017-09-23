@@ -2,12 +2,12 @@ package twitter4s.core
 
 import twitter4s.net.HttpRequest
 import twitter4s.net.oauth.OAuthRequest
+import twitter4s.UserTimeLine
 
 import scala.collection.mutable
 import io.circe.parser._
 import io.circe.generic.auto._
 import io.circe._
-import io.circe.generic.semiauto.deriveDecoder
 
 
 /**
@@ -38,7 +38,7 @@ class Twitter4s {
     val decode = Decoder[MinUser].prepare(_.downField("user"))
 
     //parse tweet status
-    val homeTimeLine:Seq[MinTimeLineData] = parse(result).flatMap(_.as[Seq[MinTimeLineData]]) match {
+    val homeTimeLine:Seq[UserTimeLine] = parse(result).flatMap(_.as[Seq[UserTimeLine]]) match {
       case Right(tweets) => tweets
       case Left(error) => {
         println(error)

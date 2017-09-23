@@ -161,6 +161,10 @@ case class User(name: String,
                )
 
 
+/**
+  * @param name
+  * @param screen_name
+  */
 case class MinUser(name: String,
                    screen_name: String
                   )

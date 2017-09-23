@@ -40,12 +40,10 @@ class HttpRequest(_keys: APIKeys) {
     val oauthMap = OAuthRequest.getOauthParamMap(keys(0),keys(2))
     val urlwithparam:String = OAuthRequest.getURLWithParam(url,param)
     val signature:String = OAuthRequest.getSignatureBaseString(this.GET,url,param,oauthMap)
-    println(signature)
     val authSignature:String = OAuthRequest.getAuthHeader(signature,oauthMap,keys(1),keys(3))
 
     val urlConnection:URLConnection = new URL(urlwithparam).openConnection
     urlConnection.setRequestProperty("Authorization",authSignature)
-    println(authSignature)
 
     val br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream))
     convertBody(br)
