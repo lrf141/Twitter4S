@@ -1,6 +1,84 @@
-[![scala](https://img.shields.io/badge/scala-2.12.3-orange.svg)](SCALA)
 [![sbt version](https://img.shields.io/badge/sbt-0.13.16-green.svg)](SBT)
-[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![TRAVIS_CI STATUS](https://travis-ci.org/lrf141/Twitter4S.svg?branch=master)](BUILD)
 # Twitter4S
 Twitter4S is a Scala wrapper for the Twitter API.
+
+## Description
+
+Twitter4S is an unofficial Scala library for the TwitterAPI.  
+With Twitter4S, you can easily integrate your Scala project with the Twitter Service.  
+100% Pure Scala - works on any Scala Platform version 2.12 or later.
+
+## Source Code
+This library is always published in this repository.
+
+## Demo
+
+### post your tweet
+
+```scala:postYourTweet.scala
+val twitter:Twitter4s = new Twitter4s
+    twitter.setAPIKeys("consumer key",
+          "consumer secret key",
+          "access token",
+          "access token secret")
+
+    println(twitter.updateStatus("Hello,World!!"))
+```
+
+
+### get your home timeline
+
+```scala:getHomeTimeLine.scala
+val twitter:Twitter4s = new Twitter4s
+    twitter.setAPIKeys("consumer key",
+      "consumer secret key",
+      "access token",
+      "access token secret")
+
+    println(twitter.getHomeTimeLine)
+```
+
+## Install
+
+You can integrate the latest Twitter4S build easily by using sbt.  
+Add this code on your build.sbt or Build.scala.
+
+```scala:build.sbt
+resolvers += "Maven Repo on github" at "https://lrf141.github.io/twitter4s/"
+
+libraryDependencies ++= Seq(
+     "twitter4s" % "twitter4s_2.12" % "1.0.0"
+)
+
+```
+
+## License
+
+Twitter4S is released under MIT License.
+
+```License
+MIT License
+
+Copyright (c) 2017 K.Takeuchi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+```
+

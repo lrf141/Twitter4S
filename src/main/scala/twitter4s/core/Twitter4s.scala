@@ -2,12 +2,11 @@ package twitter4s.core
 
 import twitter4s.net.HttpRequest
 import twitter4s.net.oauth.OAuthRequest
+import twitter4s.{TimeLineUser, UserArray, UserStatus, UserTimeLine}
 
 import scala.collection.mutable
 import io.circe.parser._
 import io.circe.generic.auto._
-import io.circe._
-import io.circe.generic.semiauto.deriveDecoder
 
 
 /**
@@ -24,9 +23,9 @@ class Twitter4s {
 
 
   /**
-    *
+    * get your home timeline and show on terminal
     */
-  def getHomeTimeLine: Unit = {
+  def getHomeTimeLine: Seq[UserTimeLine] = {
 
     val uri:String = "statuses/home_timeline.json"
     val httpRequest:HttpRequest = new HttpRequest(apiKeys)
@@ -36,7 +35,7 @@ class Twitter4s {
     val result:String = httpRequest.get(uri,mutable.TreeMap.empty[String,String])
 
     //parse tweet status
-    val homeTimeLine:Seq[MinTimeLineData] = parse(result).flatMap(_.as[Seq[MinTimeLineData]]) match {
+    val homeTimeLine:Seq[UserTimeLine] = parse(result).flatMap(_.as[Seq[UserTimeLine]]) match {
       case Right(tweets) => tweets
       case Left(error) => {
         println(error)
@@ -49,17 +48,61 @@ class Twitter4s {
 
       //append tweet status
       val status:StringBuilder = new StringBuilder
-      status.append(tweet.user.name+" @"+ tweet.user.screen_name)
+      status.append(tweet.user.name +" @"+ tweet.user.screen_name)
       status.append(tweet.text + ": " + tweet.created_at)
 
       println(status.toString)
+    }
+
+    homeTimeLine
+
+  }
+
+  /**
+    * get your followers list
+    * @return followers list as Seq[UserStatus]
+    */
+  def getFollowersList:Seq[UserStatus] = {
+
+    val uri:String = "followers/list.json"
+    val httpRequest:HttpRequest = new HttpRequest(apiKeys)
+    httpRequest.setApiKeys(this.apiKeys)
+
+    val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String, String]
+    requestParam += "cursor" -> "-1"
+
+    val response_json:String = httpRequest.get(uri,requestParam)
+    decode[UserArray](response_json) match {
+      case Right(userList) => userList.users
+      case Left(error) => null
     }
 
   }
 
 
   /**
-    * @param tweet
+    * get friends(follow) user list as Seq[UserStatus]
+    * @return
+    */
+  def getFriendsList:Seq[UserStatus] = {
+    val uri:String = "friends/list.json"
+    val httpRequest:HttpRequest = new HttpRequest(apiKeys)
+    httpRequest.setApiKeys(this.apiKeys)
+
+    val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String, String]
+    requestParam += "cursor" -> "-1"
+
+    val response_json:String = httpRequest.get(uri,requestParam)
+    decode[UserArray](response_json) match {
+      case Right(userList) => userList.users
+      case Left(error) => null
+    }
+  }
+
+
+  /**
+    * post your tweet on twitter by update status
+    * @param tweet your tweet as String
     */
   def updateStatus(tweet: String):Unit = {
     val uri:String = "statuses/update.json"
@@ -80,6 +123,9 @@ class Twitter4s {
     */
   def setAPIKeys(_ck: String, _cs: String, _at: String, _as: String):Unit = this.apiKeys.setKeys(_ck,_cs,_at,_as)
 
+  /**
+    * @return apiKeys instance
+    */
   def getAPIKeys = this.apiKeys
 
 }
