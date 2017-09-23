@@ -61,7 +61,8 @@ class Twitter4s {
 
 
   /**
-    * @param tweet
+    * post your tweet on twitter by update status
+    * @param tweet your tweet as String
     */
   def updateStatus(tweet: String):Unit = {
     val uri:String = "statuses/update.json"
@@ -82,6 +83,9 @@ class Twitter4s {
     */
   def setAPIKeys(_ck: String, _cs: String, _at: String, _as: String):Unit = this.apiKeys.setKeys(_ck,_cs,_at,_as)
 
+  /**
+    * @return apiKeys instance
+    */
   def getAPIKeys = this.apiKeys
 
 }
