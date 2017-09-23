@@ -18,7 +18,7 @@ This library is always published in this repository.
 
 ```scala:postYourTweet.scala
 val twitter:Twitter4s = new Twitter4s
-    twitter.setAPIKeys("consumer key",
+    twitter.initialize("consumer key",
           "consumer secret key",
           "access token",
           "access token secret")
@@ -31,7 +31,7 @@ val twitter:Twitter4s = new Twitter4s
 
 ```scala:getHomeTimeLine.scala
 val twitter:Twitter4s = new Twitter4s
-    twitter.setAPIKeys("consumer key",
+    twitter.initialize("consumer key",
       "consumer secret key",
       "access token",
       "access token secret")
@@ -43,7 +43,7 @@ val twitter:Twitter4s = new Twitter4s
 
 ```scala:getFollowersList.scala
 val twitter:Twitter4s = new Twitter4s
-    twitter.setAPIKeys("consumer key",
+    twitter.initialize("consumer key",
       "consumer secret key",
       "access token",
       "access token secret")
@@ -55,7 +55,7 @@ val twitter:Twitter4s = new Twitter4s
 
 ```scala:getFriendsList.scala
 val twitter:Twitter4s = new Twitter4s
-    twitter.setAPIKeys("consumer key",
+    twitter.initialize("consumer key",
       "consumer secret key",
       "access token",
       "access token secret")
