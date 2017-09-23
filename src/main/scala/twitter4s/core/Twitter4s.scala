@@ -2,7 +2,7 @@ package twitter4s.core
 
 import twitter4s.net.HttpRequest
 import twitter4s.net.oauth.OAuthRequest
-import twitter4s.UserTimeLine
+import twitter4s.{MinUser, UserTimeLine}
 
 import scala.collection.mutable
 import io.circe.parser._

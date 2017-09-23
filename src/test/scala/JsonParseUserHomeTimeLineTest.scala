@@ -1,10 +1,11 @@
 import org.scalatest.FunSpec
 import org.scalatest.Matchers._
-import twitter4s.core.{HomeTimeLine, MinTimeLineData, MinUser}
+import twitter4s.core.MinUser
 import io.circe._
 import io.circe.generic.auto._
 import io.circe.Decoder
 import io.circe.parser._
+import twitter4s.MinTimeLineData
 
 
 /**
