@@ -25,7 +25,7 @@ class Twitter4s {
   /**
     * get your home timeline and show on terminal
     */
-  def getHomeTimeLine: Unit = {
+  def getHomeTimeLine: Seq[UserTimeLine] = {
 
     val uri:String = "statuses/home_timeline.json"
     val httpRequest:HttpRequest = new HttpRequest(apiKeys)
@@ -53,6 +53,8 @@ class Twitter4s {
 
       println(status.toString)
     }
+
+    homeTimeLine
 
   }
 
