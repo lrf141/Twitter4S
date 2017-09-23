@@ -57,9 +57,10 @@ class Twitter4s {
   }
 
   /**
-    *
+    * get your followers list
+    * @return followers list as Seq[UserStatus]
     */
-  def getFollowersList():Seq[UserStatus] = {
+  def getFollowersList:Seq[UserStatus] = {
 
     val uri:String = "followers/list.json"
     val httpRequest:HttpRequest = new HttpRequest(apiKeys)
@@ -74,6 +75,26 @@ class Twitter4s {
       case Left(error) => null
     }
 
+  }
+
+
+  /**
+    * get friends(follow) user list as Seq[UserStatus]
+    * @return
+    */
+  def getFriendsList:Seq[UserStatus] = {
+    val uri:String = "friends/list.json"
+    val httpRequest:HttpRequest = new HttpRequest(apiKeys)
+    httpRequest.setApiKeys(this.apiKeys)
+
+    val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String, String]
+    requestParam += "cursor" -> "-1"
+
+    val response_json:String = httpRequest.get(uri,requestParam)
+    decode[UserArray](response_json) match {
+      case Right(userList) => userList.users
+      case Left(error) => null
+    }
   }
 
 
