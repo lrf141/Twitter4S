@@ -1,31 +1,44 @@
-package twitter4s.core
+package twitter4s
 
 import twitter4s.net.HttpRequest
 import twitter4s.net.oauth.OAuthRequest
 import twitter4s.util.JsonDecoder
-import twitter4s.{UserStatus, UserTimeLine}
 
 import scala.collection.mutable
 
-
 /**
-  * Created by lrf141 on 17/08/26.
-  * twitter4s is a Scala wrapper for the Twitter API.
-  * this lib is using REST API
- *
-  * @author lrf141
+  * Created by lrf141 on 17/09/25.
   * @since 1.0.0
+  * @author lrf141
   */
-class Twitter4s {
+class TwitterImpl extends Twitter{
 
   private [this] val apiKeys:APIKeys = new APIKeys
   private [this] var httpRequest:HttpRequest = null
 
+  /**
+    * post your tweet on twitter by update status
+    * @param tweet your tweet as String
+    */
+  override def updateStatus(tweet: String):Unit = {
+
+    //tweet data is up to 140 chars
+    if(140 < tweet.length)
+      throw new Exception
+
+    val uri:String = "statuses/update.json"
+
+    val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String,String]
+    //included +, return 401
+    requestParam += "status" -> OAuthRequest.getUrlEncode(tweet).replace("+","%20")
+
+    httpRequest.post(uri,requestParam)
+  }
 
   /**
     * get your home timeline and show on terminal
     */
-  def getHomeTimeLine: Seq[UserTimeLine] = {
+  override def getHomeTimeLine: Seq[UserTimeLine] = {
 
     val uri:String = "statuses/home_timeline.json"
 
@@ -35,7 +48,7 @@ class Twitter4s {
     //parse tweet status
     val homeTimeLine = JsonDecoder.decodeUserTimeLine(result)
 
-    homeTimeLine.foreach{tweet =>
+    homeTimeLine.map{tweet =>
 
       //append tweet status
       val status:StringBuilder = new StringBuilder
@@ -46,60 +59,31 @@ class Twitter4s {
     }
 
     homeTimeLine
-
   }
 
   /**
     * get your followers list
     * @return followers list as Seq[UserStatus]
     */
-  def getFollowersList:Seq[UserStatus] = {
+  override def getFollowersList:Seq[UserStatus] = {
 
     val uri:String = "followers/list.json"
-
-    val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String, String]
-    requestParam += "cursor" -> "-1"
-
-    val response_json:String = httpRequest.get(uri,requestParam)
+    val response_json:String = httpRequest.get(uri,mutable.TreeMap("cursor" -> "-1"))
     JsonDecoder.decodeUserArray(response_json)
 
   }
-
 
   /**
     * get friends(follow) user list as Seq[UserStatus]
     * @return
     */
-  def getFriendsList:Seq[UserStatus] = {
+  override def getFriendsList:Seq[UserStatus] = {
+
     val uri:String = "friends/list.json"
-
-    val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String, String]
-    requestParam += "cursor" -> "-1"
-
-    val response_json:String = httpRequest.get(uri,requestParam)
+    val response_json:String = httpRequest.get(uri,mutable.TreeMap("cursor" -> "-1"))
     JsonDecoder.decodeUserArray(response_json)
   }
 
-
-  /**
-    * post your tweet on twitter by update status
-    * @param tweet your tweet as String
-    */
-  def updateStatus(tweet: String):Unit = {
-
-    //tweet data is up to 140 chars
-    if(140 < tweet.length){
-      throw new Exception
-    }
-
-    val uri:String = "statuses/update.json"
-
-    val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String,String]
-    //included +, return 401
-    requestParam += "status" -> OAuthRequest.getUrlEncode(tweet).replace("+","%20")
-
-    httpRequest.post(uri,requestParam)
-  }
 
   /**
     * @param _ck consumer key
