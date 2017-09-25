@@ -25,4 +25,12 @@ trait Twitter {
     */
   def getFriendsList: Seq[UserStatus]
 
+  /**
+    * @param _ck consumer key
+    * @param _cs consumer secret key
+    * @param _at access token
+    * @param _as access token secret
+    */
+  def initialize(_ck: String, _cs: String, _at: String, _as: String):Unit
+
 }

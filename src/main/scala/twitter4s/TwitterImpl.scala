@@ -91,7 +91,7 @@ class TwitterImpl extends Twitter{
     * @param _at access token
     * @param _as access token secret
     */
-  def initialize(_ck: String, _cs: String, _at: String, _as: String):Unit = {
+  override def initialize(_ck: String, _cs: String, _at: String, _as: String):Unit = {
     this.apiKeys.setKeys(_ck,_cs,_at,_as)
     this.httpRequest = new HttpRequest(this.apiKeys)
   }
