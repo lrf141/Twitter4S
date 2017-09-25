@@ -86,6 +86,12 @@ class Twitter4s {
     * @param tweet your tweet as String
     */
   def updateStatus(tweet: String):Unit = {
+
+    //tweet data is up to 140 chars
+    if(140 < tweet.length){
+      throw new Exception
+    }
+
     val uri:String = "statuses/update.json"
 
     val requestParam:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String,String]

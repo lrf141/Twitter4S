@@ -1,5 +1,6 @@
-[![sbt version](https://img.shields.io/badge/sbt-0.13.16-green.svg)](SBT)
-[![TRAVIS_CI STATUS](https://travis-ci.org/lrf141/Twitter4S.svg?branch=master)](BUILD)
+[![scala version](https://img.shields.io/badge/scala-2.12.3-orange.svg)](https://www.scala-lang.org)
+[![sbt version](https://img.shields.io/badge/sbt-0.13.16-green.svg)](http://www.scala-sbt.org/index.html)
+[![TRAVIS_CI STATUS](https://travis-ci.org/lrf141/twitter4s.svg?branch=master)](https://travis-ci.org/lrf141/twitter4s)
 # Twitter4S
 Twitter4S is a Scala wrapper for the Twitter API.
 
