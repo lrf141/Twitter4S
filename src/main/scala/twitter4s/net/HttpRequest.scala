@@ -5,8 +5,8 @@ import scala.collection.JavaConverters._
 import java.net.{HttpURLConnection, URL, URLConnection}
 import java.io.{BufferedReader, InputStream, InputStreamReader}
 
+import twitter4s.APIKeys
 import twitter4s.net.oauth.OAuthRequest
-import twitter4s.core.APIKeys
 
 import scala.collection.mutable
 

@@ -1,4 +1,4 @@
-package twitter4s.core
+package twitter4s
 
 import scala.collection.mutable.Map
 
