@@ -13,55 +13,39 @@ With Twitter4S, you can easily integrate your Scala project with the Twitter Ser
 ## Source Code
 This library is always published in this repository.
 
-## Demo
+## How to use
+
+### get instance and init
+
+```scala:
+val twitter:Twitter = TwitterFactory.getInstance
+twitter.initialize("consumer key, consumer secret key",
+                   "access token", "access token secret")
+```
 
 ### post your tweet
 
 ```scala:postYourTweet.scala
-val twitter:Twitter4s = new Twitter4s
-    twitter.initialize("consumer key",
-          "consumer secret key",
-          "access token",
-          "access token secret")
-
-    println(twitter.updateStatus("Hello,World!!"))
+    twitter.updateStatus("Hello,World!!") //return TweetStatus
 ```
 
 
 ### get your home timeline
 
 ```scala:getHomeTimeLine.scala
-val twitter:Twitter4s = new Twitter4s
-    twitter.initialize("consumer key",
-      "consumer secret key",
-      "access token",
-      "access token secret")
-
-    println(twitter.getHomeTimeLine)
+    twitter.getHomeTimeLine //return home timeline data as Seq[UserTimeLine]
 ```
 
 ### get your followers List as Seq
 
 ```scala:getFollowersList.scala
-val twitter:Twitter4s = new Twitter4s
-    twitter.initialize("consumer key",
-      "consumer secret key",
-      "access token",
-      "access token secret")
-
-    println(twitter.getFollowersList)
+    twitter.getFollowersList // return followers list as Seq[UserArray]
 ```
 
 ### get your friends(follow) List as Seq
 
 ```scala:getFriendsList.scala
-val twitter:Twitter4s = new Twitter4s
-    twitter.initialize("consumer key",
-      "consumer secret key",
-      "access token",
-      "access token secret")
-
-    println(twitter.getFriendsList)
+    twitter.getFriendsList // return friends list as Seq[UserArray]
 ```
 
 ## Install
