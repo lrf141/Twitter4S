@@ -11,7 +11,7 @@ import scala.collection.mutable
   * @since 1.0.0
   * @author lrf141
   */
-class TwitterImpl extends Twitter{
+class TwitterImpl extends Twitter with Status{
 
   private [this] val apiKeys:APIKeys = new APIKeys
   private [this] var httpRequest:HttpRequest = null
@@ -20,7 +20,7 @@ class TwitterImpl extends Twitter{
     * post your tweet on twitter by update status
     * @param tweet your tweet as String
     */
-  override def updateStatus(tweet: String):Unit = {
+  override def updateStatus(tweet: String):TweetStatus = {
 
     //tweet data is up to 140 chars
     if(140 < tweet.length)
@@ -32,7 +32,8 @@ class TwitterImpl extends Twitter{
     //included +, return 401
     requestParam += "status" -> OAuthRequest.getUrlEncode(tweet).replace("+","%20")
 
-    httpRequest.post(uri,requestParam)
+    val responseJson: String = httpRequest.post(uri,requestParam)
+    JsonDecoder.decodeTweetStatus(responseJson)
   }
 
   /**

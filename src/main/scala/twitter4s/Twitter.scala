@@ -8,7 +8,7 @@ trait Twitter {
   /**
     * @param tweet post data which length is up to 140 char
     */
-  def updateStatus(tweet: String):Unit
+  def updateStatus(tweet: String):TweetStatus
 
   /**
     * @return your home timeline

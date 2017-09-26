@@ -2,7 +2,7 @@ package twitter4s.util
 
 import io.circe.parser._
 import io.circe.generic.auto._
-import twitter4s.{UserArray, UserStatus, UserTimeLine}
+import twitter4s.{TweetStatus, UserArray, UserStatus, UserTimeLine}
 
 /**
   * Created by lrf141 on 17/09/23.
@@ -27,6 +27,16 @@ object JsonDecoder {
     */
   def decodeUserArray(jsonText: String):Seq[UserStatus] = decode[UserArray](jsonText) match {
     case Right(values) => values.users
+    case Left(error) => null
+  }
+
+  /**
+    * Use this for json data of TweetStatus
+    * @param jsonText json data as String
+    * @return status update as TweetStatus
+    */
+  def decodeTweetStatus(jsonText: String):TweetStatus = decode[TweetStatus](jsonText) match {
+    case Right(values) => values
     case Left(error) => null
   }
 
