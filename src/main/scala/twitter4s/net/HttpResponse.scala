@@ -1,7 +1,5 @@
 package twitter4s.net
 
-import scala.collection.mutable.Map
-
 /**
   * Created by lrf141 on 17/08/26.
   * @since 1.0.0
