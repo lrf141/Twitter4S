@@ -21,6 +21,16 @@ object JsonDecoder {
   }
 
   /**
+    * Use this for json data of User TimeLine
+    * @param jsonText json data as String
+    * @return parse result as Seq[T]
+    */
+  def decodeUserTimeLine(jsonText: String): Seq[UserTimeLine] = parse(jsonText).flatMap(_.as[Seq[UserTimeLine]]) match {
+    case Right(values) => values
+    case Left(error) => null
+  }
+
+  /**
     * Use this for json data of User Arrays
     * @param jsonText json data as String
     * @return user status as Seq[UserStatus]

@@ -11,7 +11,7 @@ import scala.collection.mutable
   * @since 1.0.0
   * @author lrf141
   */
-class TwitterImpl extends Twitter with StatusBase{
+class TwitterImpl extends Twitter{
 
   private [this] val apiKeys:APIKeys = new APIKeys
   private [this] var httpRequest:HttpRequest = null
@@ -49,7 +49,7 @@ class TwitterImpl extends Twitter with StatusBase{
     //parse tweet status
     val homeTimeLine = JsonDecoder.decodeHomeTimeLine(result)
 
-    homeTimeLine.map{tweet =>
+    homeTimeLine.foreach{tweet =>
 
       //append tweet status
       val status:StringBuilder = new StringBuilder
@@ -60,6 +60,31 @@ class TwitterImpl extends Twitter with StatusBase{
     }
 
     homeTimeLine
+  }
+
+  /**
+    * @return
+    */
+  override def getUserTimeLine(userName: String): Seq[UserTimeLine] = {
+
+    val uri: String = "statuses/user_timeline.json"
+
+    //get as Json
+    val result:String = httpRequest.get(uri,mutable.TreeMap("screen_name" -> userName))
+
+    //parse tweet status
+    val userTimeLine = JsonDecoder.decodeUserTimeLine(result)
+    userTimeLine.foreach{ tweet =>
+
+      //append tweet status
+      val status:StringBuilder = new StringBuilder
+      status.append(tweet.text + ": " + tweet.created_at)
+
+      println(status.toString)
+
+    }
+
+    userTimeLine
   }
 
   /**

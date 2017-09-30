@@ -3,7 +3,7 @@ package twitter4s
 /**
   * Created by lrf141 on 17/09/25.
   */
-trait Twitter extends StatusBase{
+trait Twitter extends StatusBase with TimeLineBase{
 
   /**
     * @return your home timeline
