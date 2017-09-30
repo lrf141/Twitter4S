@@ -2,7 +2,7 @@ import org.scalatest.FunSpec
 import org.scalatest.Matchers._
 import io.circe.generic.auto._
 import io.circe.parser._
-import twitter4s.UserTimeLine
+import twitter4s.HomeTimeLine
 
 
 /**
@@ -105,7 +105,7 @@ class JsonParseUserHomeTimeLineTest extends FunSpec{
                                         "in_reply_to_status_id": null
                                       }
                                       ]
-                                  """).flatMap(_.as[Array[UserTimeLine]]) match {
+                                  """).flatMap(_.as[Array[HomeTimeLine]]) match {
         case Right(data) => {
           println(data)
           true

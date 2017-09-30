@@ -3,17 +3,12 @@ package twitter4s
 /**
   * Created by lrf141 on 17/09/25.
   */
-trait Twitter {
-
-  /**
-    * @param tweet post data which length is up to 140 char
-    */
-  def updateStatus(tweet: String):TweetStatus
+trait Twitter extends StatusBase with TimeLineBase{
 
   /**
     * @return your home timeline
     */
-  def getHomeTimeLine: Seq[UserTimeLine]
+  def getHomeTimeLine: Seq[HomeTimeLine]
 
   /**
     * @return your followers list as Seq

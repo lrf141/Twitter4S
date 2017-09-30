@@ -17,7 +17,7 @@ This library is always published in this repository.
 
 ### get instance and init
 
-```scala:
+```scala:GetInstance.scala
 val twitter:Twitter = TwitterFactory.getInstance
 twitter.initialize("consumer key, consumer secret key",
                    "access token", "access token secret")

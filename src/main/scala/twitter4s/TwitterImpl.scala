@@ -11,7 +11,7 @@ import scala.collection.mutable
   * @since 1.0.0
   * @author lrf141
   */
-class TwitterImpl extends Twitter with Status{
+class TwitterImpl extends Twitter{
 
   private [this] val apiKeys:APIKeys = new APIKeys
   private [this] var httpRequest:HttpRequest = null
@@ -20,7 +20,7 @@ class TwitterImpl extends Twitter with Status{
     * post your tweet on twitter by update status
     * @param tweet your tweet as String
     */
-  override def updateStatus(tweet: String):TweetStatus = {
+  override def updateStatus(tweet: String):Status = {
 
     //tweet data is up to 140 chars
     if(140 < tweet.length)
@@ -39,7 +39,7 @@ class TwitterImpl extends Twitter with Status{
   /**
     * get your home timeline and show on terminal
     */
-  override def getHomeTimeLine: Seq[UserTimeLine] = {
+  override def getHomeTimeLine: Seq[HomeTimeLine] = {
 
     val uri:String = "statuses/home_timeline.json"
 
@@ -47,9 +47,9 @@ class TwitterImpl extends Twitter with Status{
     val result:String = httpRequest.get(uri,mutable.TreeMap.empty[String,String])
 
     //parse tweet status
-    val homeTimeLine = JsonDecoder.decodeUserTimeLine(result)
+    val homeTimeLine = JsonDecoder.decodeHomeTimeLine(result)
 
-    homeTimeLine.map{tweet =>
+    homeTimeLine.foreach{tweet =>
 
       //append tweet status
       val status:StringBuilder = new StringBuilder
@@ -60,6 +60,31 @@ class TwitterImpl extends Twitter with Status{
     }
 
     homeTimeLine
+  }
+
+  /**
+    * @return
+    */
+  override def getUserTimeLine(userName: String): Seq[UserTimeLine] = {
+
+    val uri: String = "statuses/user_timeline.json"
+
+    //get as Json
+    val result:String = httpRequest.get(uri,mutable.TreeMap("screen_name" -> userName))
+
+    //parse tweet status
+    val userTimeLine = JsonDecoder.decodeUserTimeLine(result)
+    userTimeLine.foreach{ tweet =>
+
+      //append tweet status
+      val status:StringBuilder = new StringBuilder
+      status.append(tweet.text + ": " + tweet.created_at)
+
+      println(status.toString)
+
+    }
+
+    userTimeLine
   }
 
   /**
