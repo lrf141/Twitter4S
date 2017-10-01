@@ -26,26 +26,31 @@ twitter.initialize("consumer key, consumer secret key",
 ### post your tweet
 
 ```scala:postYourTweet.scala
-    twitter.updateStatus("Hello,World!!") //return TweetStatus
+twitter.updateStatus("Hello,World!!") //return TweetStatus
 ```
 
 
 ### get your home timeline
 
 ```scala:getHomeTimeLine.scala
-    twitter.getHomeTimeLine //return home timeline data as Seq[UserTimeLine]
+twitter.getHomeTimeLine //return home timeline data as Seq[UserTimeLine]
 ```
 
 ### get your followers List as Seq
 
 ```scala:getFollowersList.scala
-    twitter.getFollowersList // return followers list as Seq[UserArray]
+twitter.getFollowersList // return followers list as Seq[UserArray]
 ```
 
 ### get your friends(follow) List as Seq
 
 ```scala:getFriendsList.scala
-    twitter.getFriendsList // return friends list as Seq[UserArray]
+twitter.getFriendsList // return friends list as Seq[UserArray]
+```
+
+## get user timeline as Seq
+```scala:getUserTimeLine.scala
+twitter.getUserTimeLine("screen_name")
 ```
 
 ## Install

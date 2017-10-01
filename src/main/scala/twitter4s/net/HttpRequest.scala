@@ -27,33 +27,40 @@ class HttpRequest(_keys: APIKeys) {
   private[this] var apiKeys: APIKeys = _keys
 
   /**
-    * @param uri
-    * @param param
-    * @return
+    * send GET request
+    * @param uri entry point. ex) status/update.json
+    * @param param http parameter
+    * @return response header as String
     */
   def get(uri: String, param: mutable.TreeMap[String, String]): String = {
 
+    //make entry point
     val url: String = this.endpointBaseURL + uri
 
+    //get api keys
     val keys: List[String] = this.apiKeys.getKeysAsList
 
+    //make signature
     val oauthMap = OAuthRequest.getOauthParamMap(keys(0), keys(2))
     val urlwithparam: String = OAuthRequest.getURLWithParam(url, param)
     val signature: String = OAuthRequest.getSignatureBaseString(this.GET, url, param, oauthMap)
-    val authSignature: String = OAuthRequest.getAuthHeader(signature, oauthMap, keys(1), keys(3))
+    val authSignature: String = OAuthRequest.getOAuthHeader(signature, oauthMap, keys(1), keys(3))
 
+    //add authorization header
     val urlConnection: URLConnection = new URL(urlwithparam).openConnection
     urlConnection.setRequestProperty("Authorization", authSignature)
 
+    //get request response body
     val br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream))
     convertBody(br)
   }
 
 
   /**
-    * @param uri
-    * @param param
-    * @return
+    * send POST request
+    * @param uri entry point. ex) status/update.json
+    * @param param http parameter
+    * @return response header as String
     */
   def post(uri: String, param: mutable.TreeMap[String, String]): String = {
 
@@ -64,7 +71,7 @@ class HttpRequest(_keys: APIKeys) {
     val oauthMap = OAuthRequest.getOauthParamMap(keys(0), keys(2))
     val urlWithParam: String = OAuthRequest.getURLWithParam(url, param)
     val signature: String = OAuthRequest.getSignatureBaseString(this.POST, url, param, oauthMap)
-    val authSignature: String = OAuthRequest.getAuthHeader(signature, oauthMap, keys(1), keys(3))
+    val authSignature: String = OAuthRequest.getOAuthHeader(signature, oauthMap, keys(1), keys(3))
 
     val urlConnection: HttpURLConnection = new URL(urlWithParam).openConnection.asInstanceOf[HttpURLConnection]
     urlConnection.setRequestMethod(this.POST)

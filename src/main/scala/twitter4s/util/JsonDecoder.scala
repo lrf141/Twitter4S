@@ -6,6 +6,9 @@ import twitter4s._
 
 /**
   * Created by lrf141 on 17/09/23.
+  * Json decode using circe lib
+  * @since 1.0.0
+  * @author lrf141
   */
 object JsonDecoder {
 
@@ -13,7 +16,7 @@ object JsonDecoder {
   /**
     * Use this for json data of User TimeLine
     * @param jsonText json data as String
-    * @return parse result as Seq[T]
+    * @return parse result as Seq[HomeTimeLine]
     */
   def decodeHomeTimeLine(jsonText: String):Seq[HomeTimeLine] = parse(jsonText).flatMap(_.as[Seq[HomeTimeLine]]) match {
       case Right(values) => values
@@ -23,7 +26,7 @@ object JsonDecoder {
   /**
     * Use this for json data of User TimeLine
     * @param jsonText json data as String
-    * @return parse result as Seq[T]
+    * @return parse result as Seq[UserTimeLine]
     */
   def decodeUserTimeLine(jsonText: String): Seq[UserTimeLine] = parse(jsonText).flatMap(_.as[Seq[UserTimeLine]]) match {
     case Right(values) => values

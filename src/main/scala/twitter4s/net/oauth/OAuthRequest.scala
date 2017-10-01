@@ -12,28 +12,29 @@ import scala.collection.mutable
 /**
   * Created by lrf141 on 17/08/27.
   * @since 1.0.0
+  * @author lrf141
   */
 object OAuthRequest {
 
   //oauth request end-point url
-  private [this] val oauthRequestURL:String = "https://api.twitter.com/oauth/request_token"
+  //private [this] val oauthRequestURL:String = "https://api.twitter.com/oauth/request_token"
 
   private [this] var callbackURL:String = ""
 
   private [this] val charSet:String = "UTF-8"
 
-  private [this] val oauthTokenSecret:String = ""
+  //private [this] val oauthTokenSecret:String = ""
 
   /**
-    *
     * @param consumerKey
     * @param accessToken
-    * @return
+    * @return return oauth parameter as TreeMap
     */
   def getOauthParamMap(consumerKey: String, accessToken: String):mutable.TreeMap[String,String] = {
 
     var paramMap:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String,String]
 
+    //add necessary params and values
     paramMap += "oauth_consumer_key" -> consumerKey
     paramMap += "oauth_nonce" -> getNonce
     paramMap += "oauth_signature_method" -> "HMAC-SHA1"
@@ -46,11 +47,11 @@ object OAuthRequest {
   }
 
   /**
-    * @param method
-    * @param url
-    * @param urlParam
-    * @param oauthParam
-    * @return
+    * @param method POST or GET
+    * @param url entry point
+    * @param urlParam parameter wanna add to url
+    * @param oauthParam oauth parameter
+    * @return signature as String
     */
   def getSignatureBaseString(method: String, url: String, urlParam: mutable.TreeMap[String,String], oauthParam: mutable.TreeMap[String,String]):String = {
 
@@ -58,6 +59,7 @@ object OAuthRequest {
 
     var treeMap:mutable.TreeMap[String,String] = mutable.TreeMap.empty[String,String]
 
+    //add all params to TreeMap
     urlParam.keys.foreach({ key =>
       treeMap += key -> urlParam(key)
     })
@@ -65,6 +67,7 @@ object OAuthRequest {
       treeMap += key -> oauthParam(key)
     })
 
+    //append all keys and values
     for(keys <- treeMap.keys)
       paramString.append("&" + keys + "=" + treeMap(keys))
 
@@ -80,13 +83,13 @@ object OAuthRequest {
   }
 
   /**
-    * @param signature
-    * @param paramMap
+    * @param signature oauth signature
+    * @param paramMap oauth parameter as TreeMap
     * @param consumerSecret
     * @param accessSecret
-    * @return
+    * @return header with param string
     */
-  def getAuthHeader(signature: String, paramMap: TreeMap[String,String], consumerSecret: String, accessSecret: String):String = {
+  def getOAuthHeader(signature: String, paramMap: TreeMap[String,String], consumerSecret: String, accessSecret: String):String = {
     val compositeKey:String = URLEncoder.encode(consumerSecret,this.charSet) + "&" + URLEncoder.encode(accessSecret, this.charSet)
     val oauthSignature:String = computeSignature(signature,compositeKey)
     val oauthSignatureEncoded:String = URLEncoder.encode(oauthSignature,this.charSet)
@@ -109,8 +112,8 @@ object OAuthRequest {
 
 
   /**
-    * @param url
-    * @param paramMap
+    * @param url base entry point
+    * @param paramMap parameter to be added to the request
     * @return
     */
   def getURLWithParam(url: String, paramMap: mutable.TreeMap[String,String]):String = {
@@ -133,9 +136,9 @@ object OAuthRequest {
 
 
   /**
-    * @param baseString
-    * @param keyString
-    * @return
+    * @param baseString target base string
+    * @param keyString api keys applying url encode
+    * @return HmacSHA1 signature converted with base64
     */
   def computeSignature(baseString: String, keyString: String):String = {
     val keyBytes = keyString.getBytes
@@ -176,8 +179,8 @@ object OAuthRequest {
   def getNonce:String = String.valueOf(System.currentTimeMillis)
 
   /**
-    * @param target
-    * @return
+    * @param target encode target
+    * @return encoded String value
     */
   def getUrlEncode(target: String):String = URLEncoder.encode(target,this.charSet)
 }

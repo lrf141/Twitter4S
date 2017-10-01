@@ -4,6 +4,8 @@ import scala.collection.mutable.Map
 
 /**
   * Created by lrf141 on 17/08/29.
+  * @since 1.0.0
+  * @author lrf141
   */
 class APIKeys {
 
