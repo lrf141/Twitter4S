@@ -2,6 +2,8 @@ package twitter4s
 
 /**
   * Created by lrf141 on 17/09/25.
+  * @since 1.0.0
+  * @author lrf141
   */
 trait Twitter extends StatusBase with TimeLineBase{
 

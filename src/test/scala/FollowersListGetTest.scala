@@ -2,7 +2,7 @@ import io.circe.parser._
 import io.circe.generic.auto._
 import org.scalatest.FunSpec
 import org.scalatest.Matchers._
-import twitter4s.{UserArray, UserStatus}
+import twitter4s.UserArray
 
 /**
   * Created by lrf141 on 17/09/23.

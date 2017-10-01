@@ -38,6 +38,7 @@ class TwitterImpl extends Twitter{
 
   /**
     * get your home timeline and show on terminal
+    * @return get home timeline as Seq[HomeTimeLine]
     */
   override def getHomeTimeLine: Seq[HomeTimeLine] = {
 
@@ -63,7 +64,7 @@ class TwitterImpl extends Twitter{
   }
 
   /**
-    * @return
+    * @return get User timeline as Seq[UserTimeLine]
     */
   override def getUserTimeLine(userName: String): Seq[UserTimeLine] = {
 
@@ -101,7 +102,7 @@ class TwitterImpl extends Twitter{
 
   /**
     * get friends(follow) user list as Seq[UserStatus]
-    * @return
+    * @return get follow list as Seq[UserStatus]
     */
   override def getFriendsList:Seq[UserStatus] = {
 
