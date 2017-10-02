@@ -5,7 +5,8 @@ package twitter4s
   * @since 1.0.0
   * @author lrf141
   */
-trait Twitter extends StatusBase with TimeLineBase{
+trait Twitter extends StatusBase with TimeLineBase
+                                 with SearchBase{
 
   /**
     * @return your home timeline

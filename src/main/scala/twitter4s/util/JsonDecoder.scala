@@ -53,4 +53,13 @@ object JsonDecoder {
     case Left(error) => null
   }
 
+  /**
+    * @param jsonText
+    * @return
+    */
+  def decodeTweetSearch(jsonText: String):Tweets = decode[Tweets](jsonText) match {
+    case Right(values) => values
+    case Left(error) => null
+  }
+
 }
