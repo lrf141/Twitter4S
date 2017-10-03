@@ -18,7 +18,7 @@ object JsonDecoder {
     * @param jsonText json data as String
     * @return parse result as Seq[HomeTimeLine]
     */
-  def decodeHomeTimeLine(jsonText: String):Seq[HomeTimeLine] = parse(jsonText).flatMap(_.as[Seq[HomeTimeLine]]) match {
+  def decodeHomeTimeLine(jsonText: String): Seq[HomeTimeLine] = parse(jsonText).flatMap(_.as[Seq[HomeTimeLine]]) match {
       case Right(values) => values
       case Left(error) => null
   }
@@ -38,7 +38,7 @@ object JsonDecoder {
     * @param jsonText json data as String
     * @return user status as Seq[UserStatus]
     */
-  def decodeUserArray(jsonText: String):Seq[UserStatus] = decode[UserArray](jsonText) match {
+  def decodeUserArray(jsonText: String): Seq[UserStatus] = decode[UserArray](jsonText) match {
     case Right(values) => values.users
     case Left(error) => null
   }
@@ -48,16 +48,27 @@ object JsonDecoder {
     * @param jsonText json data as String
     * @return status update as TweetStatus
     */
-  def decodeTweetStatus(jsonText: String):Status = decode[Status](jsonText) match {
+  def decodeTweetStatus(jsonText: String): Status = decode[Status](jsonText) match {
     case Right(values) => values
     case Left(error) => null
   }
 
   /**
-    * @param jsonText
-    * @return
+    * Use this for json data of Tweets
+    * @param jsonText json data as String
+    * @return search of result as Tweets
     */
-  def decodeTweetSearch(jsonText: String):Tweets = decode[Tweets](jsonText) match {
+  def decodeTweetSearch(jsonText: String): Tweets = decode[Tweets](jsonText) match {
+    case Right(values) => values
+    case Left(error) => null
+  }
+
+  /**
+    * Use this for json data of UserStatus
+    * @param jsonText json data as String
+    * @return UserStatus as Seq
+    */
+  def decodeUserSearch(jsonText: String): Seq[UserStatus] = parse(jsonText).flatMap(_.as[Seq[UserStatus]]) match {
     case Right(values) => values
     case Left(error) => null
   }

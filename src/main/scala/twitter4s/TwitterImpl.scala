@@ -125,6 +125,18 @@ class TwitterImpl extends Twitter{
 
 
   /**
+    * @param q question key words
+    * @return result of user search
+    */
+  override def searchUser(q: String): Seq[UserStatus] = {
+
+    val uri: String = "users/search.json"
+    val response_json: String = httpRequest.get(uri, mutable.TreeMap("q" -> q))
+    JsonDecoder.decodeUserSearch(response_json)
+  }
+
+
+  /**
     * @param _ck consumer key
     * @param _cs consumer secret key
     * @param _at access token
