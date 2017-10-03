@@ -13,4 +13,11 @@ trait SearchBase {
     */
   def searchTweet(q: String): Tweets
 
+
+  /**
+    * @param q question key words
+    * @return result of user search
+    */
+  def searchUser(q: String): Seq[UserStatus]
+
 }
