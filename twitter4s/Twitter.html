@@ -45,13 +45,13 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">Twitter</span><span class="result"> extends <a href="StatusBase.html" class="extype" name="twitter4s.StatusBase">StatusBase</a> with <a href="TimeLineBase.html" class="extype" name="twitter4s.TimeLineBase">TimeLineBase</a></span>
+        <span class="name">Twitter</span><span class="result"> extends <a href="StatusBase.html" class="extype" name="twitter4s.StatusBase">StatusBase</a> with <a href="TimeLineBase.html" class="extype" name="twitter4s.TimeLineBase">TimeLineBase</a> with <a href="SearchBase.html" class="extype" name="twitter4s.SearchBase">SearchBase</a></span>
       </span>
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Created by lrf141 on 17/09/25.</p></div><dl class="attributes block"> <dt>Since</dt><dd><p>1.0.0</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a href="TimeLineBase.html" class="extype" name="twitter4s.TimeLineBase">TimeLineBase</a>, <a href="StatusBase.html" class="extype" name="twitter4s.StatusBase">StatusBase</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="SearchBase.html" class="extype" name="twitter4s.SearchBase">SearchBase</a>, <a href="TimeLineBase.html" class="extype" name="twitter4s.TimeLineBase">TimeLineBase</a>, <a href="StatusBase.html" class="extype" name="twitter4s.StatusBase">StatusBase</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
             <span class="toggle">Known Subclasses</span>
             <div class="subClasses hiddenContent"><a href="TwitterFactory.html" class="extype" name="twitter4s.TwitterFactory">TwitterFactory</a>, <a href="TwitterImpl.html" class="extype" name="twitter4s.TwitterImpl">TwitterImpl</a></div>
@@ -72,7 +72,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="twitter4s.Twitter"><span>Twitter</span></li><li class="in" name="twitter4s.TimeLineBase"><span>TimeLineBase</span></li><li class="in" name="twitter4s.StatusBase"><span>StatusBase</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="twitter4s.Twitter"><span>Twitter</span></li><li class="in" name="twitter4s.SearchBase"><span>SearchBase</span></li><li class="in" name="twitter4s.TimeLineBase"><span>TimeLineBase</span></li><li class="in" name="twitter4s.StatusBase"><span>StatusBase</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -186,6 +186,42 @@
     </span>
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">_ck</dt><dd class="cmt"><p>consumer key</p></dd><dt class="param">_cs</dt><dd class="cmt"><p>consumer secret key</p></dd><dt class="param">_at</dt><dd class="cmt"><p>access token</p></dd><dt class="param">_as</dt><dd class="cmt"><p>access token secret
 </p></dd></dl></div>
+    </li><li name="twitter4s.SearchBase#searchTweet" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="searchTweet(q:String):twitter4s.Tweets"></a>
+      <a id="searchTweet(String):Tweets"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">searchTweet</span><span class="params">(<span name="q">q: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="Tweets.html" class="extype" name="twitter4s.Tweets">Tweets</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#twitter4s.Twitter@searchTweet(q:String):twitter4s.Tweets" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">q</dt><dd class="cmt"><p>question key words</p></dd><dt>returns</dt><dd class="cmt"><p>result of tweet search
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SearchBase.html" class="extype" name="twitter4s.SearchBase">SearchBase</a></dd></dl></div>
+    </li><li name="twitter4s.SearchBase#searchUser" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="searchUser(q:String):Seq[twitter4s.UserStatus]"></a>
+      <a id="searchUser(String):Seq[UserStatus]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">searchUser</span><span class="params">(<span name="q">q: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.Seq">Seq</span>[<a href="UserStatus.html" class="extype" name="twitter4s.UserStatus">UserStatus</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../index.html#twitter4s.Twitter@searchUser(q:String):Seq[twitter4s.UserStatus]" title="Permalink" target="_top">
+        <img src="../lib/permalink.png" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">q</dt><dd class="cmt"><p>question key words</p></dd><dt>returns</dt><dd class="cmt"><p>result of user search
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="SearchBase.html" class="extype" name="twitter4s.SearchBase">SearchBase</a></dd></dl></div>
     </li><li name="twitter4s.StatusBase#updateStatus" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="updateStatus(text:String):twitter4s.Status"></a>
       <a id="updateStatus(String):Status"></a>
@@ -571,7 +607,9 @@
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="twitter4s.TimeLineBase">
+        <div class="parent" name="twitter4s.SearchBase">
+              <h3>Inherited from <a href="SearchBase.html" class="extype" name="twitter4s.SearchBase">SearchBase</a></h3>
+            </div><div class="parent" name="twitter4s.TimeLineBase">
               <h3>Inherited from <a href="TimeLineBase.html" class="extype" name="twitter4s.TimeLineBase">TimeLineBase</a></h3>
             </div><div class="parent" name="twitter4s.StatusBase">
               <h3>Inherited from <a href="StatusBase.html" class="extype" name="twitter4s.StatusBase">StatusBase</a></h3>

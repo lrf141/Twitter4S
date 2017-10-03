@@ -4,7 +4,7 @@ version := "1.0.0"
 
 scalaVersion := "2.12.3"
 
-organization := "twitter4s"
+organization := "Twitter4S"
 
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.1" % "test",
