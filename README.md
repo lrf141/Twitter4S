@@ -19,7 +19,7 @@ This library is always published in this repository.
 
 ```scala:GetInstance.scala
 val twitter:Twitter = TwitterFactory.getInstance
-twitter.initialize("consumer key, consumer secret key",
+twitter.initialize("consumer key", "consumer secret key",
                    "access token", "access token secret")
 ```
 
@@ -62,7 +62,7 @@ Add this code on your build.sbt or Build.scala.
 resolvers += "Maven Repo on github" at "https://lrf141.github.io/twitter4s/"
 
 libraryDependencies ++= Seq(
-     "twitter4s" % "twitter4s_2.12" % "1.0.0"
+     "Twitter4S" % "twitter4s_2.12" % "1.0.0"
 )
 
 ```
