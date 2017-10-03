@@ -59,7 +59,7 @@ You can integrate the latest Twitter4S build easily by using sbt.
 Add this code on your build.sbt or Build.scala.
 
 ```scala:build.sbt
-resolvers += "Maven Repo on github" at "https://lrf141.github.io/twitter4s/"
+resolvers += "Maven Repo on github" at "https://lrf141.github.io/Twitter4S/"
 
 libraryDependencies ++= Seq(
      "Twitter4S" % "twitter4s_2.12" % "1.0.0"
