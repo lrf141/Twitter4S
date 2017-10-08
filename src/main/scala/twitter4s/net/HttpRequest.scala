@@ -48,7 +48,9 @@ class HttpRequest(_keys: APIKeys) {
 
     //add authorization header
     val urlConnection: HttpURLConnection = new URL(urlwithparam).openConnection.asInstanceOf[HttpURLConnection]
+    urlConnection.setRequestMethod(this.GET)
     urlConnection.setRequestProperty("Authorization", authSignature)
+    urlConnection.connect()
 
     //get request response body
     val br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream))
