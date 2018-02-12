@@ -8,7 +8,8 @@ package twitter4s
 trait Twitter extends StatusBase with TimeLineBase
                                  with SearchBase
                                  with FavoriteBase
-                                 with FriendshipsBase{
+                                 with FriendshipsBase
+                                 with RetweetBase{
 
   /**
     * @return your home timeline

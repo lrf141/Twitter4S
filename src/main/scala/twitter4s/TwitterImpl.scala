@@ -205,6 +205,26 @@ class TwitterImpl extends Twitter{
     JsonDecoder.decodeUser(response_json)
   }
 
+  /**
+    * @param tweet_ids wanna create retweet tweet_id
+    * @return response tweet status
+    */
+  override def createRetweet(tweet_ids: String): Tweet = {
+    val uri: String = s"statuses/retweet/${tweet_ids}.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("id" -> tweet_ids))
+    JsonDecoder.decodeTweet(response_json)
+  }
+
+  /**
+    * @param tweet_ids wanna destroy retweet tweet_id
+    * @return response tweet status
+    */
+  override def destroyRetweet(tweet_ids: String): Tweet = {
+    val uri: String = s"statuses/unretweet/${tweet_ids}.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("id" -> tweet_ids))
+    JsonDecoder.decodeTweet(response_json)
+  }
+
 
 
   /**
