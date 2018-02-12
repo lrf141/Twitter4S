@@ -97,8 +97,6 @@ twitter.createRetweet("tweet_ids")
 ```
 ## destroy Retweet
 ```scala:createFavorite.scala
-twitter.destroyRetweet("tweet_ids")
-```
 
 
 ## Install
