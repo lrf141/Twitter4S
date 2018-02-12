@@ -84,4 +84,9 @@ object JsonDecoder {
     case Left(error) => null
   }
 
+  def decodeUser(jsonText: String): UserStatus = decode[UserStatus](jsonText) match {
+    case Right(values) => values
+    case Left(error) => null
+  }
+
 }
