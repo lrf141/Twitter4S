@@ -53,6 +53,54 @@ twitter.getFriendsList // return friends list as Seq[UserArray]
 twitter.getUserTimeLine("screen_name")
 ```
 
+## searchTweet
+```scala:SearchTweet.scala
+twitter.searchTweet("key_words")
+```
+## searchUser
+```scala:SearchUser.scala
+twitter.searchUser("key_words")
+```
+
+## get FavoriteList
+```scala:getFavoriteList.scala
+twitter.getFavoriteList("screen_name") // return user favorite list as Seq
+```
+
+## create Favorite
+```scala:createFavorite.scala
+twitter.createFavorite("tweet_ids or screen_name")
+```
+
+## destroy Favorite
+```scala:createFavorite.scala
+twitter.destroyFavorite("tweet_ids or screen_name")
+```
+
+## create Friendships
+```scala:createFavorite.scala
+twitter.createFriendshipsByName("screen_name")
+or
+twitter.createFriendshipsByIds("user_id")
+```
+
+## destroy Friendships
+```scala:createFavorite.scala
+twitter.destroyFriendshipsByName("screen_name")
+or
+twitter.destroyFriendshipsByIds("user_id")
+```
+
+## create Retweet
+```scala:createFavorite.scala
+twitter.createRetweet("tweet_ids")
+```
+## destroy Retweet
+```scala:createFavorite.scala
+twitter.destroyRetweet("tweet_ids")
+```
+
+
 ## Install
 
 You can integrate the latest Twitter4S build easily by using sbt.  
