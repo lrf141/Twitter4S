@@ -73,4 +73,20 @@ object JsonDecoder {
     case Left(error) => null
   }
 
+
+  def decodeFavoriteList(jsonText: String): Seq[Favorites] = parse(jsonText).flatMap(_.as[Seq[Favorites]]) match {
+    case Right(values) => values
+    case Left(error) => null
+  }
+
+  def decodeTweet(jsonText: String): Tweet = decode[Tweet](jsonText) match {
+    case Right(values) => values
+    case Left(error) => null
+  }
+
+  def decodeUser(jsonText: String): UserStatus = decode[UserStatus](jsonText) match {
+    case Right(values) => values
+    case Left(error) => null
+  }
+
 }

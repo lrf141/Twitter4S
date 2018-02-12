@@ -1,6 +1,6 @@
 [![scala version](https://img.shields.io/badge/scala-2.12.3-orange.svg)](https://www.scala-lang.org)
 [![sbt version](https://img.shields.io/badge/sbt-0.13.16-green.svg)](http://www.scala-sbt.org/index.html)
-[![TRAVIS_CI STATUS](https://travis-ci.org/lrf141/twitter4s.svg?branch=master)](https://travis-ci.org/lrf141/twitter4s)
+[![TRAVIS_CI STATUS](https://travis-ci.org/lrf141/Twitter4S.svg?branch=master)](https://travis-ci.org/lrf141/Twitter4S)
 # Twitter4S
 Twitter4S is a Scala wrapper for the Twitter API.
 
@@ -19,7 +19,7 @@ This library is always published in this repository.
 
 ```scala:GetInstance.scala
 val twitter:Twitter = TwitterFactory.getInstance
-twitter.initialize("consumer key, consumer secret key",
+twitter.initialize("consumer key", "consumer secret key",
                    "access token", "access token secret")
 ```
 
@@ -53,16 +53,64 @@ twitter.getFriendsList // return friends list as Seq[UserArray]
 twitter.getUserTimeLine("screen_name")
 ```
 
+## searchTweet
+```scala:SearchTweet.scala
+twitter.searchTweet("key_words")
+```
+## searchUser
+```scala:SearchUser.scala
+twitter.searchUser("key_words")
+```
+
+## get FavoriteList
+```scala:getFavoriteList.scala
+twitter.getFavoriteList("screen_name") // return user favorite list as Seq
+```
+
+## create Favorite
+```scala:createFavorite.scala
+twitter.createFavorite("tweet_ids or screen_name")
+```
+
+## destroy Favorite
+```scala:createFavorite.scala
+twitter.destroyFavorite("tweet_ids or screen_name")
+```
+
+## create Friendships
+```scala:createFavorite.scala
+twitter.createFriendshipsByName("screen_name")
+or
+twitter.createFriendshipsByIds("user_id")
+```
+
+## destroy Friendships
+```scala:createFavorite.scala
+twitter.destroyFriendshipsByName("screen_name")
+or
+twitter.destroyFriendshipsByIds("user_id")
+```
+
+## create Retweet
+```scala:createFavorite.scala
+twitter.createRetweet("tweet_ids")
+```
+## destroy Retweet
+```scala:createFavorite.scala
+twitter.destroyRetweet("tweet_ids")
+```
+
+
 ## Install
 
 You can integrate the latest Twitter4S build easily by using sbt.  
 Add this code on your build.sbt or Build.scala.
 
 ```scala:build.sbt
-resolvers += "Maven Repo on github" at "https://lrf141.github.io/twitter4s/"
+resolvers += "Maven Repo on github" at "https://lrf141.github.io/Twitter4S/"
 
 libraryDependencies ++= Seq(
-     "twitter4s" % "twitter4s_2.12" % "1.0.0"
+     "Twitter4S" % "twitter4s_2.12" % "1.0.0"
 )
 
 ```

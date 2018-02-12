@@ -68,8 +68,7 @@ object OAuthRequest {
     })
 
     //append all keys and values
-    for(keys <- treeMap.keys)
-      paramString.append("&" + keys + "=" + treeMap(keys))
+    treeMap.keys.foreach(keys => paramString.append("&" + keys + "=" + treeMap(keys)))
 
     val template:String = "%s&%s&%s"
     val signature:String = String.format(

@@ -135,6 +135,97 @@ class TwitterImpl extends Twitter{
     JsonDecoder.decodeUserSearch(response_json)
   }
 
+  /**
+    * @param screen_name screen_name key words
+    * @return result of fav list
+    */
+  override def getFavoriteList(screen_name: String): Seq[Favorites] = {
+    val uri: String = "favorites/list.json"
+    val response_json: String = httpRequest.get(uri, mutable.TreeMap("screen_name" -> screen_name))
+    JsonDecoder.decodeFavoriteList(response_json)
+  }
+
+  /**
+    * @param tweet_ids wanna liked tweet ids
+    * @return response json
+    */
+  override def createFavorite(tweet_ids: String): Tweet = {
+    val uri: String = "favorites/create.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("id" -> tweet_ids))
+    JsonDecoder.decodeTweet(response_json)
+  }
+
+  /**
+    * @param tweet_ids wanna destroy liked tweet ids
+    * @return response json
+    */
+  override def destroyFavorite(tweet_ids: String): Tweet = {
+    val uri: String = "favorites/destroy.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("id" -> tweet_ids))
+    JsonDecoder.decodeTweet(response_json)
+  }
+
+  /**
+    * @param screen_name wanna create friendships by screen_name
+    * @return response user status
+    */
+  override def createFriendshipsByName(screen_name: String): UserStatus = {
+    val uri: String = "friendships/create.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("screen_name" -> screen_name))
+    JsonDecoder.decodeUser(response_json)
+  }
+
+  /**
+    * @param user_ids wanna create friendships by user_ids
+    * @return response user status
+    */
+  override def createFriendshipsByIds(user_ids: String): UserStatus = {
+    val uri: String = "friendships/create.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("user_id" -> user_ids))
+    JsonDecoder.decodeUser(response_json)
+  }
+
+  /**
+    * @param screen_name wanna destroy friendships by screen_name
+    * @return response user status
+    */
+  override def destroyFriendshipsByName(screen_name: String): UserStatus = {
+    val uri: String = "friendships/destroy.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("screen_name" -> screen_name))
+    JsonDecoder.decodeUser(response_json)
+  }
+
+  /**
+    * @param user_ids wanna destroy friendships by user_ids
+    * @return response user status
+    */
+  override def destroyFriendshipsByIds(user_ids: String): UserStatus = {
+    val uri: String = "friendships/destroy.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("user_id" -> user_ids))
+    JsonDecoder.decodeUser(response_json)
+  }
+
+  /**
+    * @param tweet_ids wanna create retweet tweet_id
+    * @return response tweet status
+    */
+  override def createRetweet(tweet_ids: String): Tweet = {
+    val uri: String = s"statuses/retweet/${tweet_ids}.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("id" -> tweet_ids))
+    JsonDecoder.decodeTweet(response_json)
+  }
+
+  /**
+    * @param tweet_ids wanna destroy retweet tweet_id
+    * @return response tweet status
+    */
+  override def destroyRetweet(tweet_ids: String): Tweet = {
+    val uri: String = s"statuses/unretweet/${tweet_ids}.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("id" -> tweet_ids))
+    JsonDecoder.decodeTweet(response_json)
+  }
+
+
 
   /**
     * @param _ck consumer key
