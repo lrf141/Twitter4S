@@ -155,6 +155,12 @@ class TwitterImpl extends Twitter{
     JsonDecoder.decodeTweet(response_json)
   }
 
+  override def destroyFavorite(tweet_ids: String): Tweet = {
+    val uri: String = "favorites/destroy.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("id" -> tweet_ids))
+    JsonDecoder.decodeTweet(response_json)
+  }
+
 
   /**
     * @param _ck consumer key
