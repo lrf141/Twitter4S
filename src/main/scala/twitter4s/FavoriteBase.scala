@@ -7,6 +7,7 @@ package twitter4s
   */
 trait FavoriteBase {
 
-  def getFavoriteList(q: String):Seq[Favorites]
+  def getFavoriteList(screen_name: String):Seq[Favorites]
 
+  def createFavorite(tweet_ids: String): Tweet
 }

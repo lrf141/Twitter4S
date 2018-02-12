@@ -135,11 +135,24 @@ class TwitterImpl extends Twitter{
     JsonDecoder.decodeUserSearch(response_json)
   }
 
-
-  override def getFavoriteList(q: String): Seq[Favorites] = {
+  /**
+    * @param screen_name screen_name key words
+    * @return result of fav list
+    */
+  override def getFavoriteList(screen_name: String): Seq[Favorites] = {
     val uri: String = "favorites/list.json"
-    val response_json: String = httpRequest.get(uri, mutable.TreeMap("screen_name" -> q))
+    val response_json: String = httpRequest.get(uri, mutable.TreeMap("screen_name" -> screen_name))
     JsonDecoder.decodeFavoriteList(response_json)
+  }
+
+  /**
+    * @param tweet_ids wanna liked tweet ids
+    * @return response json
+    */
+  override def createFavorite(tweet_ids: String): Tweet = {
+    val uri: String = "favorites/create.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("id" -> tweet_ids))
+    JsonDecoder.decodeTweet(response_json)
   }
 
 

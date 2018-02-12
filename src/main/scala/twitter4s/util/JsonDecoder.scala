@@ -79,4 +79,9 @@ object JsonDecoder {
     case Left(error) => null
   }
 
+  def decodeTweet(jsonText: String): Tweet = decode[Tweet](jsonText) match {
+    case Right(values) => values
+    case Left(error) => null
+  }
+
 }
