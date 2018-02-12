@@ -6,7 +6,8 @@ package twitter4s
   * @author lrf141
   */
 trait Twitter extends StatusBase with TimeLineBase
-                                 with SearchBase{
+                                 with SearchBase
+                                 with FavoriteBase{
 
   /**
     * @return your home timeline

@@ -136,6 +136,13 @@ class TwitterImpl extends Twitter{
   }
 
 
+  override def getFavoriteList(q: String): Seq[Favorites] = {
+    val uri: String = "favorites/list.json"
+    val response_json: String = httpRequest.get(uri, mutable.TreeMap("screen_name" -> q))
+    JsonDecoder.decodeFavoriteList(response_json)
+  }
+
+
   /**
     * @param _ck consumer key
     * @param _cs consumer secret key
