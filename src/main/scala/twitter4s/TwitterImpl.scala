@@ -185,6 +185,27 @@ class TwitterImpl extends Twitter{
     JsonDecoder.decodeUser(response_json)
   }
 
+  /**
+    * @param screen_name wanna destroy friendships by screen_name
+    * @return response user status
+    */
+  override def destroyFriendshipsByName(screen_name: String): UserStatus = {
+    val uri: String = "friendships/destroy.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("screen_name" -> screen_name))
+    JsonDecoder.decodeUser(response_json)
+  }
+
+  /**
+    * @param user_ids wanna destroy friendships by user_ids
+    * @return response user status
+    */
+  override def destroyFriendshipsByIds(user_ids: String): UserStatus = {
+    val uri: String = "friendships/destroy.json"
+    val response_json: String = httpRequest.post(uri, mutable.TreeMap("user_id" -> user_ids))
+    JsonDecoder.decodeUser(response_json)
+  }
+
+
 
   /**
     * @param _ck consumer key

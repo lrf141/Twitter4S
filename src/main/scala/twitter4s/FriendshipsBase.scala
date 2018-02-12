@@ -8,4 +8,8 @@ trait FriendshipsBase {
   def createFriendshipsByName(screen_name: String): UserStatus
   def createFriendshipsByIds(user_ids: String): UserStatus
 
+  def destroyFriendshipsByName(screen_name: String): UserStatus
+  def destroyFriendshipsByIds(user_ids: String): UserStatus
+
+
 }
